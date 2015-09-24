@@ -36,6 +36,7 @@ public class BildEinlesen {
 
     public void hexEinlesen(String bild) {
 
+        long start = System.currentTimeMillis();
         try (BufferedInputStream input = new BufferedInputStream(
                 new FileInputStream(bild))) {
 
@@ -47,32 +48,36 @@ public class BildEinlesen {
             int maxAdd = Long.toHexString(file.length()).length();
 
             while ((a = input.read(b)) != -1) {
-                String addr = Integer.toHexString(add).toUpperCase();
+                StringBuilder sb = new StringBuilder(Integer.toHexString(add).toUpperCase());
+                //String addr = Integer.toHexString(add).toUpperCase();
 
-                while (addr.length() < maxAdd)
-                    addr = "0" + addr;
+                while (sb.length() < maxAdd)
+                    sb.insert(0,"0");
+                   // addr = "0" + addr;
 
-                System.out.print("0x" + addr + ":  ");
+                sb.append(":  ");
+                //System.out.print("0x" + addr + ":  ");
 
                 int count = 0;
                 for (int i = 0; i < a; i++) {
                     int hex = b[i] & 255;
                     String hexS = Integer.toHexString(hex).toUpperCase();
                     if (hexS.length() == 1) hexS = "0" + hexS;
-                    System.out.print(hexS + " ");
+                    sb.append(hexS + " ");
+                    //System.out.print(hexS + " ");
                     count++;
                 }
 
                     while (count < 16) {
-                        System.out.print("   ");
-                        Arrays.fill(b, (byte) 0);
+                        sb.append("   ");
+                        //System.out.print("   ");
+                        b[a] = 0;
                         count++;
                     }
 
-                System.out.print(" " + new String(b).replaceAll("[^\\p{Print}]", "."));
+                sb.append(" " + new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
+                System.out.println(sb);
                 add += 16;
-
-                System.out.println();
             }
 
         } catch
