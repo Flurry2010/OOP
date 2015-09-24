@@ -71,7 +71,7 @@ public class BildEinlesen {
                     while (count < 16) {
                         sb.append("   ");
                         //System.out.print("   ");
-                        b[a] = 0;
+                        b[count] = 0;
                         count++;
                     }
 
