@@ -36,7 +36,7 @@ public class BildEinlesen {
 
     public void hexEinlesen(String bild) {
 
-        long start = System.currentTimeMillis();
+        //long start = System.currentTimeMillis();
         try (BufferedInputStream input = new BufferedInputStream(
                 new FileInputStream(bild))) {
 
@@ -84,6 +84,7 @@ public class BildEinlesen {
                 (IOException e) {
             System.out.println("Fehler beim lesen....");
         }
+        //System.out.println(System.currentTimeMillis() - start);
     }
 }
 
