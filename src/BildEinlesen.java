@@ -63,7 +63,8 @@ public class BildEinlesen {
                     int hex = b[i] & 255;
                     String hexS = Integer.toHexString(hex).toUpperCase();
                     if (hexS.length() == 1) hexS = "0" + hexS;
-                    sb.append(hexS + " ");
+                    sb.append(hexS);
+                    sb.append(' ');
                     //System.out.print(hexS + " ");
                     count++;
                 }
@@ -75,7 +76,8 @@ public class BildEinlesen {
                         count++;
                     }
 
-                sb.append(" " + new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
+                sb.append(' ');
+                sb.append(new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
                 System.out.println(sb);
                 add += 16;
             }
