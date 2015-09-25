@@ -1,38 +1,12 @@
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-
-
 /**
- * Created by dfleuren on 18.09.2015.
+ * Created by dfleuren on 25.09.2015.
  */
-public class BildEinlesen {
-
-    public void lesen(String data) {
-
-        try (BufferedInputStream in = new BufferedInputStream(
-                new FileInputStream(data))) {
-
-            byte[] b = new byte[16];
-            int a;
-
-            while ((a = in.read(b)) != -1) {
-                System.out.println();
-                for (int i = 0; i < a; i++) {
-                    int h = b[i] & 255;
-                    String hex = Integer.toHexString(h).toUpperCase();
-                    if (hex.length() == 1) hex = "0" + hex;
-                    System.out.print(hex + " ");
-                }
-            }
-        } catch
-                (IOException e) {
-            System.out.println("Fehler beim lesen....");
-        }
-    }
+public class DateiAendern {
 
     public void hexEinlesen(String bild) {
 
@@ -52,28 +26,22 @@ public class BildEinlesen {
                 while (sb.length() < maxAdd)
                     sb.insert(0,"0");
 
-                sb.append(": ");
+                sb.append(":  ");
 
-
+                int count = 0;
                 for (int i = 0; i < a; i++) {
                     int hex = b[i] & 255;
                     String hexS = Integer.toHexString(hex).toUpperCase();
                     if (hexS.length() == 1) hexS = "0" + hexS;
-                    sb.append(hexS).append(" ");
-
+                    sb.append(hexS + " ");
+                    count++;
                 }
-                    if(a < 16) {
-                        byte[] temp = new byte[a];
 
-                        for (int i = 0; i < a; i++) {
-                            temp[i] = b[i];
-                        }
-
-                        while (a < 16) {
-                            sb.append("   ");
-                            a++;
-                        }
-                    }
+                while (count < 16) {
+                    sb.append("   ");
+                    b[a] = 0;
+                    count++;
+                }
 
                 sb.append(" " + new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
                 System.out.println(sb);
@@ -86,5 +54,6 @@ public class BildEinlesen {
         }
         //System.out.println(System.currentTimeMillis() - start);
     }
-}
 
+
+}
