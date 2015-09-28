@@ -71,13 +71,21 @@ public class DateiAendern {
              BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HA Ausgabe.bmp"))) {
 
             while ((input = br.readLine())!=null) {
+
                 int begin = input.indexOf(':');
                 input = input.substring(begin + 2, begin + 49);
                 String[] split = input.split(" ");
+
                 byte[] lager = new byte[split.length];
 
                 for (int i = 0; i < split.length; i++) {
                     lager[i] = (byte) Integer.parseInt(split[i], 16);
+
+//                byte[] lager = new byte[16];
+//                String[] split = input.split(":")[1].trim() .split(" ");
+//                int i = 0;
+//                for(; i < 16 && !split[i].equals(""); i++){
+//                lager[i] = (byte) Integer.parseInt(split[i], 16);
                 }
                 ausgabe.add(lager);
             }
@@ -89,6 +97,8 @@ public class DateiAendern {
         }
     }
 }
+
+
 
 
 
