@@ -11,10 +11,10 @@ import java.io.IOException;
  */
 public class BildEinlesen {
 
-    public void lesen(String data) {
+    public void lesen(String bild) {
 
         try (BufferedInputStream in = new BufferedInputStream(
-                new FileInputStream(data))) {
+                new FileInputStream(bild))) {
 
             byte[] b = new byte[16];
             int a;
@@ -44,35 +44,35 @@ public class BildEinlesen {
             byte[] b = new byte[16];
             int a;
             int add = 0;
+            //int maxAdd = ((Long)file.length()).toString().length()-1; //stimmt nicht immer, weil kein HEX-Wert
             int maxAdd = Long.toHexString(file.length()).length();
 
             while ((a = input.read(b)) != -1) {
                 StringBuilder sb = new StringBuilder(Integer.toHexString(add).toUpperCase());
+                //String addr = Integer.toHexString(add).toUpperCase();
 
                 while (sb.length() < maxAdd)
                     sb.insert(0,"0");
+                   // addr = "0" + addr;
 
-                sb.append(": ");
+                sb.append(":  ");
+                //System.out.print("0x" + addr + ":  ");
 
-
+                int count = 0;
                 for (int i = 0; i < a; i++) {
                     int hex = b[i] & 255;
                     String hexS = Integer.toHexString(hex).toUpperCase();
                     if (hexS.length() == 1) hexS = "0" + hexS;
-                    sb.append(hexS).append(" ");
-
+                    sb.append(hexS + " ");
+                    //System.out.print(hexS + " ");
+                    count++;
                 }
-                    if(a < 16) {
-                        byte[] temp = new byte[a];
 
-                        for (int i = 0; i < a; i++) {
-                            temp[i] = b[i];
-                        }
-
-                        while (a < 16) {
-                            sb.append("   ");
-                            a++;
-                        }
+                    while (count < 16) {
+                        sb.append("   ");
+                        //System.out.print("   ");
+                        b[a] = 0;
+                        count++;
                     }
 
                 sb.append(" " + new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
