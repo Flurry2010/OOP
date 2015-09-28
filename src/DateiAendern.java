@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dfleuren on 25.09.2015.
@@ -53,15 +55,45 @@ public class DateiAendern {
                 }
 
             }
-            }catch
-            (IOException e){
-                System.out.println("Fehler beim lesen....");
-            }
-            //System.out.println(System.currentTimeMillis() - start);
+        } catch
+                (IOException e) {
+            System.out.println("Fehler beim lesen....");
         }
-
-
+        //System.out.println(System.currentTimeMillis() - start);
     }
+
+    public void hexSchreiben() {
+        File in = new File("neu.txt");
+        File out = new File("HAOut.jpg");
+        List<byte[]> ausgabe = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(
+                new FileReader(in)); BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(out))) {
+
+            String read;
+
+            while ((read = br.readLine()) != null) {
+                int start = read.indexOf(':');
+                read = read.substring(start + 2, start + 49);
+                String[] split = read.split(" ");
+                byte[] temp = new byte[split.length];
+
+                for (int i = 0; i < split.length; i++) {
+                    temp[i] = (byte) Integer.parseInt(split[i], 16);
+                }
+                ausgabe.add(temp);
+            }
+
+            for (byte[] b : ausgabe)
+                bos.write(b);
+
+        } catch (IOException e) {
+            System.out.println("Dateifehler");
+
+        }
+    }
+
+}
 
 
 
