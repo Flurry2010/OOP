@@ -27,7 +27,7 @@ public class DateiAendern {
                 while (sb.length() < maxAdd)
                     sb.insert(0, "0");
 
-                sb.append(":  ");
+                sb.append(": ");
 
                 for (int i = 0; i < a; i++) {
                     int hex = b[i] & 255;
@@ -65,22 +65,28 @@ public class DateiAendern {
     public void hexSchreiben(String data) {
 
         List<byte[]> ausgabe = new ArrayList<>();
+        String input;
 
         try (BufferedReader br = new BufferedReader(
                 new FileReader(data));
-             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HAOut.jpg"))) {
+             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HAOut.bmp"))) {
 
-            byte[] lager = new byte[16];
-            String in = br.readLine();
+            while ((input = br.readLine())!=null) {
+                int begin = input.indexOf(':');
+                input = input.substring(begin+1, begin+47);
+                String[] split = input.split(" ");
+                byte[] lager = new byte[split.length];
 
+                for (int i = 0; i < split.length; i++) {
+                    lager[i] = (byte)Integer.parseInt(split[i],16);
+                }
+                ausgabe.add(lager);
 
-
-
-
-
-
+                for (byte[] x : ausgabe)
+                    bos.write(x);
+            }
         } catch (IOException e) {
-            System.out.println("Dateifehler");
+            System.out.println("Error");
         }
     }
 }
