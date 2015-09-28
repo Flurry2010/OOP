@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,13 +54,11 @@ public class DateiAendern {
                     bw.append(sb);
                     bw.newLine();
             }
-
-            hexSchreiben("neu.txt");
-
         } catch
                 (IOException e) {
             System.out.println("Fehler beim lesen....");
         }
+        hexSchreiben("neu.txt");
     }
 
     public void hexSchreiben(String data) {
@@ -69,22 +68,22 @@ public class DateiAendern {
 
         try (BufferedReader br = new BufferedReader(
                 new FileReader(data));
-             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HAOut.bmp"))) {
+             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HA Ausgabe.bmp"))) {
 
             while ((input = br.readLine())!=null) {
                 int begin = input.indexOf(':');
-                input = input.substring(begin+1, begin+47);
+                input = input.substring(begin + 2, begin + 49);
                 String[] split = input.split(" ");
                 byte[] lager = new byte[split.length];
 
                 for (int i = 0; i < split.length; i++) {
-                    lager[i] = (byte)Integer.parseInt(split[i],16);
+                    lager[i] = (byte) Integer.parseInt(split[i], 16);
                 }
                 ausgabe.add(lager);
-
+            }
                 for (byte[] x : ausgabe)
                     bos.write(x);
-            }
+
         } catch (IOException e) {
             System.out.println("Error");
         }

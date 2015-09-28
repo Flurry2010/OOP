@@ -25,7 +25,7 @@ public class Main {
         //ds.dataEinlesen("dead.bmp");
 
         DateiAendern da = new DateiAendern();
-        da.hexEinlesen("DP.jpg");
+        da.hexEinlesen("test.bmp");
 
 
 
