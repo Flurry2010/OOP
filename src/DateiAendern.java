@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,9 +79,8 @@ public class DateiAendern {
 
                 for (int i = 0; i < split.length; i++) {
                     lager[i] = (byte) Integer.parseInt(split[i], 16);
-
 //                byte[] lager = new byte[16];
-//                String[] split = input.split(":")[1].trim() .split(" ");
+//                String[] split = input.split(":")[1].trim().split(" ");
 //                int i = 0;
 //                for(; i < 16 && !split[i].equals(""); i++){
 //                lager[i] = (byte) Integer.parseInt(split[i], 16);
