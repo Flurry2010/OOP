@@ -47,8 +47,9 @@ public class DateiAendern {
 
                     sb.append(" ");
                     sb.append(new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
-                    System.out.println(sb);
                     add += 16;
+                    bw.append(sb);
+                    bw.newLine();
                 }
 
             }
