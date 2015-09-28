@@ -7,14 +7,15 @@ import java.util.List;
  */
 public class DateiAendern {
 
-    public void hexEinlesen(String bild) {
+    public void hexEinlesen(String data) {
 
         File fileOut = new File("neu.txt");
 
         try (BufferedInputStream input = new BufferedInputStream(
-                new FileInputStream(bild)); BufferedWriter bw = new BufferedWriter(new FileWriter(fileOut))) {
+                new FileInputStream(data));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(fileOut))) {
 
-            File fileIn = new File(bild);
+            File fileIn = new File(data);
             byte[] b = new byte[16];
             int a;
             int add = 0;
@@ -52,38 +53,31 @@ public class DateiAendern {
                     bw.append(sb);
                     bw.newLine();
             }
+
+            hexSchreiben("neu.txt");
+
         } catch
                 (IOException e) {
             System.out.println("Fehler beim lesen....");
         }
     }
 
-    public void hexSchreiben() {
+    public void hexSchreiben(String data) {
 
-        File fileIn = new File("neu.txt");
-        File fileOut = new File("HAOut.jpg");
+        List<byte[]> ausgabe = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(
-                new FileReader(fileIn)); BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(fileOut))) {
+                new FileReader(data));
+             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("HAOut.jpg"))) {
 
-            List<byte[]> ausgabe = new ArrayList<>();
-            String read;
+            byte[] lager = new byte[16];
+            String in = br.readLine();
 
-            while ((read = br.readLine()) != null) {
-                int start = read.indexOf(':');
-                read = read.substring(start + 2, start + 49);
-                String[] split = read.split(" ");
 
-                byte[] temp = new byte[split.length];
 
-                for (int i = 0; i < split.length; i++) {
-                    temp[i] = (byte) Integer.parseInt(split[i], 16);
-                }
-                ausgabe.add(temp);
-            }
 
-            for (byte[] b : ausgabe)
-                bos.write(b);
+
+
 
         } catch (IOException e) {
             System.out.println("Dateifehler");

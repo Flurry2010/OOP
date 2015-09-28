@@ -26,7 +26,7 @@ public class Main {
 
         DateiAendern da = new DateiAendern();
         da.hexEinlesen("DP.jpg");
-        da.hexSchreiben();
+
 
 
 
