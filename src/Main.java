@@ -19,10 +19,14 @@ public class Main {
 
         BildEinlesen bl = new BildEinlesen();
         //bl.lesen("DP.jpg");
-       bl.hexEinlesen("DP.jpg");
+       //bl.hexEinlesen("DP.jpg");
 
         DateiSchreiben ds = new DateiSchreiben();
         //ds.dataEinlesen("dead.bmp");
+
+        DateiAendern da = new DateiAendern();
+        da.hexEinlesen("DP.jpg");
+        da.hexSchreiben();
 
 
 

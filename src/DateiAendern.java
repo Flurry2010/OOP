@@ -33,7 +33,6 @@ public class DateiAendern {
                     String hexS = Integer.toHexString(hex).toUpperCase();
                     if (hexS.length() == 1) hexS = "0" + hexS;
                     sb.append(hexS).append(" ");
-
                 }
                 if (a < 16) {
                     byte[] temp = new byte[a];
@@ -46,36 +45,35 @@ public class DateiAendern {
                         sb.append("   ");
                         a++;
                     }
-
+                }
                     sb.append(" ");
                     sb.append(new String(b).replaceAll("[^\\p{Print}]", ".")); //regular expression (p ist ein set (print nur druckbare Zeichen)
                     add += 16;
                     bw.append(sb);
                     bw.newLine();
-                }
-
             }
         } catch
                 (IOException e) {
             System.out.println("Fehler beim lesen....");
         }
-        //System.out.println(System.currentTimeMillis() - start);
     }
 
     public void hexSchreiben() {
-        File in = new File("neu.txt");
-        File out = new File("HAOut.jpg");
-        List<byte[]> ausgabe = new ArrayList<>();
+
+        File fileIn = new File("neu.txt");
+        File fileOut = new File("HAOut.jpg");
 
         try (BufferedReader br = new BufferedReader(
-                new FileReader(in)); BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(out))) {
+                new FileReader(fileIn)); BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(fileOut))) {
 
+            List<byte[]> ausgabe = new ArrayList<>();
             String read;
 
             while ((read = br.readLine()) != null) {
                 int start = read.indexOf(':');
                 read = read.substring(start + 2, start + 49);
                 String[] split = read.split(" ");
+
                 byte[] temp = new byte[split.length];
 
                 for (int i = 0; i < split.length; i++) {
@@ -89,10 +87,8 @@ public class DateiAendern {
 
         } catch (IOException e) {
             System.out.println("Dateifehler");
-
         }
     }
-
 }
 
 
