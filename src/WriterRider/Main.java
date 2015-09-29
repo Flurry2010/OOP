@@ -1,6 +1,6 @@
-import java.io.FileReader;
-import java.io.Reader;
-import java.util.ArrayList;
+package WriterRider;
+
+import WriterRider.*;
 
 /**
  * Created by dfleuren on 14.09.2015.
