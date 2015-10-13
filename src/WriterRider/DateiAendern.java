@@ -64,6 +64,8 @@ public class DateiAendern {
 
     public void hexSchreiben(String data) {
 
+        long start = System.currentTimeMillis();
+
         List<byte[]> ausgabe = new ArrayList<>();
         String input;
 
@@ -73,21 +75,21 @@ public class DateiAendern {
 
             while ((input = br.readLine())!=null) {
 
-                int begin = input.indexOf(':');
-                input = input.substring(begin + 2, begin + 49);
-                String[] split = input.split(" ");
+//                int begin = input.indexOf(':');
+//                input = input.substring(begin + 2, begin + 49);
+//                String[] split = input.split(" ");
+//
+//                byte[] lager = new byte[split.length];
+//
+//                for (int i = 0; i < split.length; i++) {
+//                    lager[i] = (byte) Integer.parseInt(split[i], 16);
 
-                byte[] lager = new byte[split.length];
-
-                for (int i = 0; i < split.length; i++) {
-                    lager[i] = (byte) Integer.parseInt(split[i], 16);
-
-//                byte[] lager = new byte[16];
-//                String[] split = input.split(":")[1].trim().split(" ");
-//                int i = 0;
-//                while(i < 16 && !split[i].equals("")){
-//                lager[i] = (byte) Integer.parseInt(split[i], 16);
-//                    i++;
+                byte[] lager = new byte[16];
+                String[] split = input.split(":")[1].trim().split(" ");
+                int i = 0;
+                while(i < 16 && !split[i].equals("")){
+                lager[i] = (byte) Integer.parseInt(split[i], 16);
+                    i++;
                 }
                 ausgabe.add(lager);
             }
@@ -97,6 +99,8 @@ public class DateiAendern {
         } catch (IOException e) {
             System.out.println("Error");
         }
+
+        System.out.println(System.currentTimeMillis() - start);
     }
 }
 
