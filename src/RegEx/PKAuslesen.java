@@ -43,8 +43,7 @@ public class PKAuslesen {
         try (BufferedReader br = new BufferedReader(new FileReader(data))) {
 
             String read;
-            Pattern p = Pattern.compile("^[+-]?((0|[1-9]\\d*)(\\.(\\d*))?([eE][+-]?\\d[1,3])?|" +
-                    ")");
+            Pattern p = Pattern.compile("^[+-]?((0|[1-9]\\d*)(\\.(\\d*))?([eE][+-]?\\d{1,3})?$)");
 
             List<String> kommas = new LinkedList<>();
 
