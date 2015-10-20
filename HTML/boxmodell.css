@@ -1,0 +1,30 @@
+*{
+
+    padding: 0;
+    margin: 0;
+}
+
+#ersteBox{
+    background-color: white;
+    width: 400px;
+    padding: 5px 40px;
+    border:  solid 5px black;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+ #zweiteBox{
+     background-color: white;
+     width: 400px;
+     padding: 5px 40px;
+     border-right:  double 5px red;
+     border-left: double 5px red;
+     margin: 10px;
+ }
+
+ #dritteBox{
+     background-color: yellow;
+     padding: 10px;
+     border: dotted 5px orange;
+     margin: 10px;
+ }
