@@ -27,7 +27,7 @@ public class mainAutos {
         }
         System.out.println();
         System.out.println("Es wurden " + count + " Dateien gefunden" + "\n");
-        System.out.println("Daten werden verarbeitet");
+        System.out.println("Daten werden verarbeitet \n");
         a.einlesen(addr);
     }
 }
