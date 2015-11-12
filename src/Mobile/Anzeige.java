@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.*;
+import java.util.List;
 
 
 /**
@@ -20,13 +21,22 @@ import java.util.*;
 public class Anzeige{
 
 
-    public void frame(JList list){
+    public void frame(List<Auto> autos){
         JFrame box = new JFrame("Auswahl");
         box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        box.setSize((int) list.getPreferredSize().getWidth() + 50, 500);
+        DefaultListModel listModel = new DefaultListModel();
+        JList<Auto> list = new JList<Auto>(listModel);
+
+       //box.setSize((int) autos.getPreferredSize().getWidth() + 50, 500);
+        box.setSize(550, 500);
         JScrollPane listeSrcoller = new JScrollPane(list);
         box.add(listeSrcoller, BorderLayout.CENTER);
+
+        for (Auto a : autos) {
+            listModel.addElement(a.toHTML());
+        }
+
         box.setLocationRelativeTo(null);
         box.isAlwaysOnTop();
         box.setVisible(true);

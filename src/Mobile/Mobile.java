@@ -80,7 +80,7 @@ public class Mobile {
         autoArray = autos.toArray(autoArray);
         list = new JList<>(autoArray);
         Anzeige box = new Anzeige();
-        box.frame(list);
+        box.frame(autos);
         //box.frame2(list);
     }
 

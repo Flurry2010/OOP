@@ -1,6 +1,7 @@
 package Mobile;
 
 import javax.swing.*;
+import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Auto implements Comparable<Auto> {
         }
     };
 
-    public final static Comparator<Auto> SORT_EZ = new Comparator<Auto>() {
+    public final static Comparator<Auto> SORT_EZ_RE = new Comparator<Auto>() {
         public int compare(Auto o1, Auto o2) {
             if (o1 == null && o2 == null) return 0;
             if (o1 == null) return 1;
@@ -60,7 +61,7 @@ public class Auto implements Comparable<Auto> {
         }
     };
 
-    public final static Comparator<Auto> SORT_EZ_RE = new Comparator<Auto>() {
+    public final static Comparator<Auto> SORT_EZ = new Comparator<Auto>() {
         public int compare(Auto o1, Auto o2) {
             if (o1 == null && o2 == null) return 0;
             if (o1 == null) return -1;
@@ -231,30 +232,34 @@ public class Auto implements Comparable<Auto> {
     public String toString() {
 
         return String.format("%s, Ort: %s, KmStand: %,dkm, Preis: %,d€, EZ: %s, HU: %s, Kraftstoff: %s, PS: %s", name, ort, kmStand, preis, ez, hu, kraftstoff, leistung);
-
-
-
-
-
-
-
-//        String re = "";
-//        re += name != null ? "Name:\t\t" + name + "\n" : "";
-//        re += ort != null ? "Ort:\t\t" + ort + "\n" : "";
-//        re += anbieter != null ? "Anbieter:\t" + anbieter + "\n" : "";
-//        re += typ != null ? "TYP:\t\t" + typ + "\n" : "";
-//        re += schaltung != null ? "Schaltung:\t" + schaltung + "\n" : "";
-//        re += kraftstoff != null ? "Kraftstoff:\t" + kraftstoff + "\n" : "";
-//        re += leistung != null ? "Leistung:\t" + leistung + "\n" : "";
-//        re += kmStand > 0 ? "Km-Stand:\t" + kmStand + " km\n" : "";
-//        re += zustand != null ? "Zustand:\t" + zustand + "\n" : "";
-//        re += !ez.isEmpty() ? "EZ:\t\t\t" + ez + "\n" : "";
-//        re += !hu.isEmpty() ? "HU:\t\t\t" + hu + "\n" : "";
-//        re += preis > 0 ? "Preis:\t\t" + preis + " €" : "";
-//        if (!extras.isEmpty())
-//            re += "\n\nEXTRAS";
-//        for (String s : extras)
-//            re += "\n\t- " + s;
-//        return re;
     }
+
+    public String toHTML () {
+        String text = "<html>";
+
+        text += "##################################################################" + "<br>";
+        text += name != null ? "Name:\t\t" + name + "<br>" : "";
+        text += ort != null ? "Ort:\t\t" + ort + "<br>" : "";
+        text += anbieter != null ? "Anbieter:\t" + anbieter + "<br>" : "";
+        text += typ != null ? "TYP:\t\t" + typ + "<br>" : "";
+        text += schaltung != null ? "Schaltung:\t" + schaltung + "<br>" : "";
+        text += kraftstoff != null ? "Kraftstoff:\t" + kraftstoff + "<br>" : "";
+        text += leistung != null ? "Leistung:\t" + leistung + "<br>" : "";
+        text += kmStand > 0 ? "Km-Stand:\t" + kmStand + " km<br>" : "";
+        text += zustand != null ? "Zustand:\t" + zustand + "<br>" : "";
+        text += !ez.isEmpty() ? "EZ:\t\t\t" + ez + "<br>" : "";
+        text += !hu.isEmpty() ? "HU:\t\t\t" + hu + "<br>" : "";
+        text += preis > 0 ? "Preis:\t\t" + preis + " €" : "";
+        if (!extras.isEmpty())
+            text += "<br><br>EXTRAS";
+        for (String s : extras)
+            text += "<br>\t- " + s;
+        text += "<br>";
+        text += "##################################################################" + "<br>";
+        text += "<br>";
+
+        return text + "</html>";
+    }
+
+
 }
