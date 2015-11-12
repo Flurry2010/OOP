@@ -37,7 +37,6 @@ public class Mobile {
 
         public static List<Auto> finder(List<String> dateien){
 
-            //LinkedList<String> dateien = findeDateien();
             LinkedList<String> con = new LinkedList<>();
 
 
@@ -68,13 +67,11 @@ public class Mobile {
                 }
             }
 
-            Anzeige box = new Anzeige();
+            new Anzeige();
             auswahl(autos);
 
             return autos;
         }
-
-
 
     public static void jlist( List<Auto> autos){
         Auto[] autoArray =  new Auto[autos.size()];
