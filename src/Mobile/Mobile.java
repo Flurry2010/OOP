@@ -76,12 +76,13 @@ public class Mobile {
 
 
 
-    public static void jlist(Auto[] autoArray, List<Auto> autos, JList list){
-        autoArray = autos.toArray(autoArray);
-        list = new JList<>(autoArray);
+    public static void jlist( List<Auto> autos){
+        Auto[] autoArray =  new Auto[autos.size()];
+        autos.toArray(autoArray);
+       JList<Auto> list = new JList<>(autoArray);
         Anzeige box = new Anzeige();
-        //box.frame(autos);
-        box.frame1(list);
+        box.frame(autos);
+        //box.frame1(list);
         //box.frame2(list);
     }
 
@@ -91,9 +92,6 @@ public class Mobile {
 
         String auswahl;
         String aufab;
-        Auto[] autoArray = new Auto[autos.size()];
-        JList<Auto> list = new JList<>();
-
         Scanner scan = new Scanner(System.in);
 
         while (true) {
@@ -103,8 +101,8 @@ public class Mobile {
             System.out.println("(1) Erstzulassung");
             System.out.println("(2) Kilometerstand");
             System.out.println("(3) Preis");
+            System.out.println("(4) Namen");
             System.out.println("(x) Exit");
-            System.out.println("(#) Standardmässig wird nach dem Namen sortiert!");
 
 
             auswahl = scan.next();
@@ -120,19 +118,18 @@ public class Mobile {
                             System.out.println();
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_EZ_RE);
-                            jlist(autoArray,autos,list);
-                            //System.out.println(Arrays.toString(autoArray));
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         case "b":
                             System.out.println();
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_EZ);
-                            jlist(autoArray, autos, list);
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         default:
-                            System.out.println("Falsche Eingabe");
+                            System.out.println("Falsche Eingabe\n\n");
                     }
                     break;
                 case "2":
@@ -145,18 +142,18 @@ public class Mobile {
                             System.out.println("Es wird aufsteigend sortiert!\n");
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_KMSTAND_RE);
-                            jlist(autoArray, autos, list);
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         case "b":
                             System.out.println("Es wird absteigend sortiert!\n");
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_KMSTAND);
-                            jlist(autoArray, autos, list);
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         default:
-                            System.out.println("Falsche Eingabe");
+                            System.out.println("Falsche Eingabe\n\n");
                     }
                     break;
                 case "3":
@@ -169,28 +166,31 @@ public class Mobile {
                             System.out.println("Es wird aufsteigend sortiert!\n");
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_PREIS_RE);
-                            jlist(autoArray, autos, list);
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         case "b":
                             System.out.println("Es wird absteigend sortiert!\n");
                             System.out.println("############################################################\n");
                             autos.sort(Auto.SORT_PREIS);
-                            jlist(autoArray, autos, list);
+                            jlist(autos);
                             System.out.println("############################################################\n");
                             break;
                         default:
-                            System.out.println("Falsche Eingabe");
+                            System.out.println("Falsche Eingabe\n\n");
                     }
                     break;
                 case "x":
                     System.exit(0);
-                default:
+                case "4":
                     System.out.println("Es wird nach Namen sortiert!");
                     System.out.println("############################################################\n");
                     autos.sort(Auto.SORT_NAME);
-                    jlist(autoArray,autos,list);
+                    jlist(autos);
                     System.out.println("############################################################\n");
+                    break;
+                default:
+                    System.out.println("Falsche Eingabe\n\n");
             }
 
         }

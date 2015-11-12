@@ -26,9 +26,8 @@ public class Anzeige{
         box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         DefaultListModel listModel = new DefaultListModel();
-        JList<Auto> list = new JList<Auto>(listModel);
+        JList<Auto> list = new JList<>(listModel);
 
-        box.setSize(600, 500);
         JScrollPane listeSrcoller = new JScrollPane(list);
         box.add(listeSrcoller, BorderLayout.CENTER);
 
@@ -36,9 +35,12 @@ public class Anzeige{
             listModel.addElement(a.toHTML());
         }
 
+        //box.setSize(600, 500);
+        box.setSize((int) list.getPreferredSize().getWidth() + 50, 500);
         box.setLocationRelativeTo(null);
         box.isAlwaysOnTop();
         box.setVisible(true);
+
     }
 
     public void frame1(JList<Auto> list){
