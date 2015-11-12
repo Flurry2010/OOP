@@ -42,6 +42,19 @@ public class Anzeige{
         box.setVisible(true);
     }
 
+    public void frame1(JList<Auto> list){
+        JFrame box = new JFrame("Auswahl");
+        box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        box.setSize((int) list.getPreferredSize().getWidth() + 50, 500);
+        JScrollPane listeSrcoller = new JScrollPane(list);
+        box.add(listeSrcoller, BorderLayout.CENTER);
+
+        box.setLocationRelativeTo(null);
+        box.isAlwaysOnTop();
+        box.setVisible(true);
+    }
+
 
 
     public void frame2(JList list){
