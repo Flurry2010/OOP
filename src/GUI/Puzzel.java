@@ -85,6 +85,7 @@ public class Puzzel implements ActionListener {
             String temp = buttons[pos].getName();
             buttons[pos].setName(buttons[lastButton].getName());
             buttons[lastButton].setName(temp);
+            lastButton = pos;
         }
     }
 
