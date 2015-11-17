@@ -6,6 +6,8 @@ import GUI.JavaFrame;
 import GUI.Layout;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,66 +58,109 @@ public class Anzeige{
         box.setVisible(true);
     }
 
+    public void menu(List<Auto> autos){
+
+        JFrame window=new JFrame("Das Menü");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Anlegen von JPanel
+        JPanel links = new JPanel();
+        JPanel rechts = new JPanel();
+        JPanel unten = new JPanel();
+
+        // Anlegen des Model mit JList
+        DefaultListModel listModel=new DefaultListModel();
+        JList<Auto>list=new JList<>(listModel);
+
+        // SrcollPanel erstelen
+        JScrollPane listeSrcoller = new JScrollPane(list);
+
+        // Anlegen von Buttons
+        JButton nameB = new JButton();
+        JButton preisB = new JButton();
+        JButton ezB = new JButton();
+        JButton kmB = new JButton();
+
+        // Anlegen von RadioButtons
+        JRadioButton nameR = new JRadioButton();
+        JRadioButton preisR = new JRadioButton();
+        JRadioButton ezR = new JRadioButton();
+        JRadioButton kmR = new JRadioButton();
+
+        // Anlegen einer RadioButtonGruppe
+        ButtonGroup radio = new ButtonGroup();
+        radio.add(nameR);
+        radio.add(preisR);
+        radio.add(ezR);
+        radio.add(kmR);
+
+        // Anlegen von CheckBoxen
+        JCheckBox nameC = new JCheckBox();
+        JCheckBox preisC = new JCheckBox();
+        JCheckBox ezC = new JCheckBox();
+        JCheckBox kmC = new JCheckBox();
+
+        // Anlegen einer CheckBoxGruppe
+        ButtonGroup check = new ButtonGroup();
+        check.add(nameC);
+        check.add(preisC);
+        check.add(ezC);
+        check.add(kmC);
+
+        // Buttons dem JPanel zuweisen
+        links.add(nameC);
+        links.add(preisC);
+        links.add(ezC);
+        links.add(kmC);
+
+        rechts.add(nameC);
+        rechts.add(preisC);
+        rechts.add(ezC);
+        rechts.add(kmC);
+
+        //Elemente dem Fenster hinzufügen
+        window.add(listeSrcoller,BorderLayout.CENTER);
+        window.add(links,BorderLayout.WEST);
+        window.add(rechts,BorderLayout.EAST);
+        window.add(unten,BorderLayout.SOUTH);
+
+        // Zur Veranschaulichung einen Border
+        Border bo=new LineBorder(Color.black);
+
+        // Erstellung einer Menüleiste
+        JMenuBar bar=new JMenuBar();
+
+        // Wir setzen unsere Umrandung für unsere JMenuBar
+        bar.setBorder(bo);
+
+        // Erzeugung eines Objektes der Klasse JMenu
+        JMenu ansicht=new JMenu("Ansicht");
+
+        // Erzeugung eines Objektes der Klasse JSeparator
+        JSeparator sep1=new JSeparator();
+        JSeparator sep2=new JSeparator();
+        JSeparator sep3=new JSeparator();
+        JSeparator sep4=new JSeparator();
 
 
-//    public void frame2(JList list){
-//
-//        JFrame box = new JFrame("Auswahl");
-//        box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//
-//
-//        box.setSize((int) list.getPreferredSize().getWidth() + 50, 500);
-//        JScrollPane listeSrcoller = new JScrollPane(list);
-//
-//        JPanel panelTop = new JPanel();
-//        JLabel jl = new JLabel("Wie sollen die Autos sortiert werden ?", JLabel.CENTER);
-//        JLabel x = new JLabel("");
-//        JLabel y = new JLabel("");
-//        CheckboxGroup cbg = new CheckboxGroup();
-//        Checkbox ez = new Checkbox("EZ", cbg, false);
-//        ItemListener il = new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                    if(((Checkbox)e.getItem()).isEnabled()){
-//                       java.util.List<Auto> liste =  Mobile.finder(Mobile.findeDateien());
-//                        liste.sort(Auto.SORT_EZ_RE);
-//                        Mobile.jlist();
-//                    }
-//            }
-//        };
-//        Checkbox km = new Checkbox("KmStand", cbg, false);
-//        Checkbox preis = new Checkbox("Preis", cbg, false);
-//
-//        JPanel panelBottem = new JPanel();
-//        JButton b = new JButton("Close");
-//        b.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                System.exit(0);
-//            }
-//        });
-//
-//        JPanel panelLeft = new JPanel();
-//        JPanel panelRight = new JPanel();
-//
-//        box.setLayout(new BorderLayout());
-//        panelTop.setLayout(new GridLayout(2, 3));
-//        panelTop.add(x);
-//        panelTop.add(jl);
-//        panelTop.add(y);
-//        panelTop.add(ez);
-//        panelTop.add(km);
-//        panelTop.add(preis);
-//        panelBottem.add(b);
-//
-//        box.add(panelTop, BorderLayout.NORTH);
-//        box.add(panelBottem, BorderLayout.SOUTH);
-//        box.add(panelLeft, BorderLayout.WEST);
-//        box.add(panelRight, BorderLayout.EAST);
-//        box.add(listeSrcoller, BorderLayout.CENTER);
-//
-//        box.setSize((int) list.getPreferredSize().getWidth() + 50, 500);
-//        box.setLocationRelativeTo(null);
-//        box.isAlwaysOnTop();
-//        box.setVisible(true);
-//    }
+        // Menü wird der Menüleiste hinzugefügt
+        bar.add(ansicht);
+        bar.add(bearbeiten);
+        bar.add(frag);
+        window.add(bar);
+
+        // Fenstergrösse festlegen
+        window.setSize(400,200);
+
+        //Fester position festlegen
+        window.setLocationRelativeTo(window);
+
+        // Menüleiste wird für den Dialog gesetzt
+        window.setJMenuBar(bar);
+
+        // Wir lassen unseren Dialog anzeigen
+        window.setVisible(true);
+    }
+
+
 }

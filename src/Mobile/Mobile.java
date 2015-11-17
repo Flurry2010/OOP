@@ -78,9 +78,9 @@ public class Mobile {
         autos.toArray(autoArray);
        JList<Auto> list = new JList<>(autoArray);
         Anzeige box = new Anzeige();
-        box.frame(autos);
+        //box.frame(autos);
         //box.frame1(list);
-        //box.frame2(list);
+        box.menu(autos);
     }
 
 
