@@ -125,10 +125,10 @@ public class Anzeige{
         window.add(unten,BorderLayout.SOUTH);
 
         // Zur Veranschaulichung einen Border
-        Border bo=new LineBorder(Color.black);
+        Border bo = new LineBorder(Color.black);
 
         // Erstellung einer Menüleiste
-        JMenuBar bar=new JMenuBar();
+        JMenuBar bar = new JMenuBar();
 
         // Wir setzen unsere Umrandung für unsere JMenuBar
         bar.setBorder(bo);
@@ -138,19 +138,12 @@ public class Anzeige{
 
         // Erzeugung eines Objektes der Klasse JSeparator
         JSeparator sep1=new JSeparator();
-        JSeparator sep2=new JSeparator();
-        JSeparator sep3=new JSeparator();
-        JSeparator sep4=new JSeparator();
-
 
         // Menü wird der Menüleiste hinzugefügt
-        bar.add(ansicht);
-        bar.add(bearbeiten);
-        bar.add(frag);
-        window.add(bar);
+
 
         // Fenstergrösse festlegen
-        window.setSize(400,200);
+        window.setSize(600,600);
 
         //Fester position festlegen
         window.setLocationRelativeTo(window);
@@ -161,6 +154,4 @@ public class Anzeige{
         // Wir lassen unseren Dialog anzeigen
         window.setVisible(true);
     }
-
-
 }
