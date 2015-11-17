@@ -73,7 +73,7 @@ public class Mobile {
             return autos;
         }
 
-    public static void jlist( List<Auto> autos){
+    private static void jlist( List<Auto> autos){
         Auto[] autoArray =  new Auto[autos.size()];
         autos.toArray(autoArray);
        JList<Auto> list = new JList<>(autoArray);
@@ -192,5 +192,4 @@ public class Mobile {
 
         }
     }
-
    }

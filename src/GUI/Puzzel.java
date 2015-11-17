@@ -33,6 +33,7 @@ public class Puzzel implements ActionListener {
         JFrame window = new JFrame("Puzzel");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new GridLayout(YY,XX));
+
         try{
             BufferedImage dp = ImageIO.read(new File("DP.jpg"));
 
@@ -48,28 +49,56 @@ public class Puzzel implements ActionListener {
                 buttons[y*XX+x].addActionListener(this);
 
                 window.add(buttons[y * XX + x]);
-
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        window.setResizable(false);
+        window.setLocationRelativeTo(null);
         window.pack();
         window.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
     private boolean isDone(){
 
         for(JButton b : buttons)
-        if (!b.getName().equals(b.getActionCommand())
+        if (!b.getName().equals(b.getActionCommand()))
             return false;
 
         return true;
     }
 
+    private boolean inTouch(int pos){
+
+        return ((pos%XX == lastButton%XX)&& Math.abs(pos/XX-lastButton/XX) < 2)||((pos/XX == lastButton/XX)&&Math.abs(pos%XX-lastButton%XX) < 2);
+    }
+
+    private void switchButton(int pos){
+
+        if(inTouch(pos)) {
+            buttons[lastButton].setIcon(buttons[pos].getIcon());
+            buttons[pos].setIcon(null);
+
+            String temp = buttons[pos].getName();
+            buttons[pos].setName(buttons[lastButton].getName());
+            buttons[lastButton].setName(temp);
+        }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if(firstClick){
+            firstClick = false;
+            buttons[0].setIcon(null);
+
+        }
+
+        int pos = Integer.parseInt(e.getActionCommand());
+        switchButton(pos);
+
+    }
 
 }
