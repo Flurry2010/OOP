@@ -60,20 +60,27 @@ public class Anzeige{
 
     public void menu(List<Auto> autos){
 
-        JFrame window=new JFrame("Das Menü");
+        JFrame window = new JFrame("Das Menü");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Anlegen des Model mit JList
+        DefaultListModel listModel=new DefaultListModel();
+        JList<Auto>list = new JList<>(listModel);
+
+        for (Auto a : autos) {
+            listModel.addElement(a.toHTML());
+        }
+
+        // SrcollPanel erstelen
+        JScrollPane listeSrcoller = new JScrollPane(list);
 
         // Anlegen von JPanel
         JPanel links = new JPanel();
         JPanel rechts = new JPanel();
         JPanel unten = new JPanel();
 
-        // Anlegen des Model mit JList
-        DefaultListModel listModel=new DefaultListModel();
-        JList<Auto>list=new JList<>(listModel);
-
-        // SrcollPanel erstelen
-        JScrollPane listeSrcoller = new JScrollPane(list);
+        // Neues Layout erzwingen
+        links.setLayout(new GridLayout(1,3));
 
         // Anlegen von Buttons
         JButton nameB = new JButton();
@@ -125,13 +132,13 @@ public class Anzeige{
         window.add(unten,BorderLayout.SOUTH);
 
         // Zur Veranschaulichung einen Border
-        Border bo = new LineBorder(Color.black);
+        Border border = new LineBorder(Color.black);
 
         // Erstellung einer Menüleiste
         JMenuBar bar = new JMenuBar();
 
         // Wir setzen unsere Umrandung für unsere JMenuBar
-        bar.setBorder(bo);
+        bar.setBorder(border);
 
         // Erzeugung eines Objektes der Klasse JMenu
         JMenu ansicht=new JMenu("Ansicht");
