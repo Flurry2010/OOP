@@ -21,10 +21,16 @@ import java.util.List;
 /**
  * Created by dfleuren on 09.11.2015.
  */
-public class Anzeige{
+public class Anzeige implements ActionListener{
+
+    private Map<String,Comparator<Auto>> tab = new HashMap<>();
+    private List<Auto> autos;
+    private DefaultListModel listModel = new DefaultListModel();
+    private JFrame window = new JFrame("Das Menü zur Autosortierung !!!");
 
 
-    public void frame(List<Auto> autos){
+    public void frame(){
+
         JFrame box = new JFrame("Auswahl");
         box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -61,21 +67,27 @@ public class Anzeige{
 
     public void menu(List<Auto> autos){
 
-        JFrame window = new JFrame("Das Menü zur Autosortierung !!!");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tab.put("Name",Auto.SORT_NAME);
+        tab.put("Preis", Auto.SORT_PREIS);
+        tab.put("EZ",Auto.SORT_EZ);
+        tab.put("Km",Auto.SORT_KMSTAND);
+        tab.put("aufsteigend",Auto.SORT_PREIS_RE);
+        tab.put("absteigend",Auto.SORT_PREIS);
+
+        this.autos = autos;
+
+        this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Anlegen des Model mit JList
-        DefaultListModel listModel=new DefaultListModel();
-        JList<Auto>list = new JList<>(listModel);
+        JList<Auto>list = new JList<>(this.listModel);
 
+        // Dem Model die Daten aus der AutoListe übergeben
         for (Auto a : autos) {
-            listModel.addElement(a.toHTML());
+            this.listModel.addElement(a.toHTML());
         }
 
-        JTextArea ta = new JTextArea("dick Titten");
-
         // SrcollPanel erstelen
-        JScrollPane listeSrcoller = new JScrollPane(ta);
+        JScrollPane listeSrcoller = new JScrollPane(list);
 
         // Anlegen von JPanel
         JPanel links = new JPanel();
@@ -92,16 +104,24 @@ public class Anzeige{
         rechts.setLayout(new GridLayout(4, 1));
 
         // Anlegen von Buttons
-        JButton nameB = new JButton("NAME");
-        JButton preisB = new JButton("PREIS");
+        JButton nameB = new JButton("Name");
+        nameB.addActionListener(this);
+        JButton preisB = new JButton("Preis");
+        preisB.addActionListener(this);
         JButton ezB = new JButton("EZ");
-        JButton kmB = new JButton("KM");
+        ezB.addActionListener(this);
+        JButton kmB = new JButton("Km");
+        kmB.addActionListener(this);
 
         // Anlegen von RadioButtons
-        JRadioButton nameR = new JRadioButton("NAME");
-        JRadioButton preisR = new JRadioButton("PREIS");
+        JRadioButton nameR = new JRadioButton("Name");
+        nameR.addActionListener(this);
+        JRadioButton preisR = new JRadioButton("Preis");
+        preisR.addActionListener(this);
         JRadioButton ezR = new JRadioButton("EZ");
-        JRadioButton kmR = new JRadioButton("KM");
+        ezR.addActionListener(this);
+        JRadioButton kmR = new JRadioButton("Km");
+        kmR.addActionListener(this);
 
         // Anlegen einer RadioButtonGruppe
         ButtonGroup radio = new ButtonGroup();
@@ -111,10 +131,14 @@ public class Anzeige{
         radio.add(kmR);
 
         // Anlegen von CheckBoxen
-        JCheckBox nameC = new JCheckBox("NAME");
-        JCheckBox preisC = new JCheckBox("PREIS");
+        JCheckBox nameC = new JCheckBox("Name");
+        nameC.addActionListener(this);
+        JCheckBox preisC = new JCheckBox("Preis");
+        preisC.addActionListener(this);
         JCheckBox ezC = new JCheckBox("EZ");
-        JCheckBox kmC = new JCheckBox("KM");
+        ezC.addActionListener(this);
+        JCheckBox kmC = new JCheckBox("Km");
+        kmC.addActionListener(this);
 
         // BackgroundColor für die Panel
         nameR.setBackground(Color.LIGHT_GRAY);
@@ -187,9 +211,13 @@ public class Anzeige{
 
         // MenüItems erstellen
         JMenuItem name = new JMenuItem("Name");
+        name.addActionListener(this);
         JMenuItem preis = new JMenuItem("Preis");
+        preis.addActionListener(this);
         JMenuItem ez = new JMenuItem("EZ");
+        ez.addActionListener(this);
         JMenuItem km = new JMenuItem("Km");
+        km.addActionListener(this);
 
         // BackgroundColor und Textfarbe für die MenüItems festlegen
         name.setBackground(Color.BLACK);
@@ -212,9 +240,13 @@ public class Anzeige{
 
         // JCheckBoxMenuItem erstellen
         JCheckBoxMenuItem nameMC = new JCheckBoxMenuItem("Name");
+        nameMC.addActionListener(this);
         JCheckBoxMenuItem preisMC = new JCheckBoxMenuItem("Preis");
+        preisMC.addActionListener(this);
         JCheckBoxMenuItem ezMC = new JCheckBoxMenuItem("EZ");
+        ezMC.addActionListener(this);
         JCheckBoxMenuItem kmMC = new JCheckBoxMenuItem("Km");
+        kmMC.addActionListener(this);
 
         // Anlegen einer JCheckBoxMenüItem ButtonGruppe
         ButtonGroup jcheck = new ButtonGroup();
@@ -235,9 +267,13 @@ public class Anzeige{
 
         // JRadioButtonMenuItem erstellen
         JRadioButtonMenuItem nameMR = new JRadioButtonMenuItem ("Name");
+        nameMR.addActionListener(this);
         JRadioButtonMenuItem preisMR = new JRadioButtonMenuItem("Preis");
+        preisMR.addActionListener(this);
         JRadioButtonMenuItem ezMR = new JRadioButtonMenuItem("EZ");
+        ezMR.addActionListener(this);
         JRadioButtonMenuItem kmMR = new JRadioButtonMenuItem("Km");
+        kmMR.addActionListener(this);
 
         // Anlegen einer JRadioButtonMenuItem ButtonGruppe
         ButtonGroup jradio = new ButtonGroup();
@@ -275,13 +311,21 @@ public class Anzeige{
 
         // JRadioButtonMenuItem und JCheckBoxMenuItem für das UnterMenü erzeugen
         JRadioButtonMenuItem aufNR = new JRadioButtonMenuItem ("aufsteigend");
+        aufNR.addActionListener(this);
         JRadioButtonMenuItem abNR = new JRadioButtonMenuItem("absteigend");
+        abNR.addActionListener(this);
         JCheckBoxMenuItem aufPC = new JCheckBoxMenuItem("aufsteigend");
+        aufPC.addActionListener(this);
         JCheckBoxMenuItem abPC = new JCheckBoxMenuItem("absteigend");
+        abPC.addActionListener(this);
         JRadioButtonMenuItem aufER = new JRadioButtonMenuItem ("aufsteigend");
+        aufER.addActionListener(this);
         JRadioButtonMenuItem abER = new JRadioButtonMenuItem("absteigend");
+        abER.addActionListener(this);
         JCheckBoxMenuItem aufKC = new JCheckBoxMenuItem("aufsteigend");
+        aufKC.addActionListener(this);
         JCheckBoxMenuItem abKC = new JCheckBoxMenuItem("absteigend");
+        abKC.addActionListener(this);
 
         // Anlegen einer JRadioButtonMenuItem ButtonGruppe
         ButtonGroup jradioNR = new ButtonGroup();
@@ -335,5 +379,50 @@ public class Anzeige{
 
         // Wir lassen unseren Dialog anzeigen
         window.setVisible(true);
+    }
+
+        // Methode um herauszufinden welchen Button benutzt wurde
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource()instanceof JButton){
+            JButton temp = (JButton)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+        if(e.getSource()instanceof JCheckBox){
+            JCheckBox temp = (JCheckBox)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+        if(e.getSource()instanceof JRadioButton){
+            JRadioButton temp = (JRadioButton)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+        if(e.getSource()instanceof JMenuItem){
+            JMenuItem temp = (JMenuItem)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+        if(e.getSource()instanceof JCheckBoxMenuItem){
+            JCheckBoxMenuItem temp = (JCheckBoxMenuItem)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+        if(e.getSource()instanceof JRadioButtonMenuItem){
+            JRadioButtonMenuItem temp = (JRadioButtonMenuItem)e.getSource();
+            System.out.println(temp.getText());
+            refresh(temp.getText());
+        }
+
+    }
+
+    // Methode zum JList refresh
+    private void refresh(String x){
+        Collections.sort(this.autos, tab.get(x));
+        listModel.clear();
+        for (Auto a : this.autos) {
+            this.listModel.addElement(a.toHTML());
+        }
     }
 }

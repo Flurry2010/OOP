@@ -238,7 +238,7 @@ public class Auto implements Comparable<Auto> {
     public String toHTML () {
         String text = "<html>";
 
-        text += "################################################################################" + "<br>";
+        text += "##############################################################################" + "<br>";
         text += name != null ? "Name:\t\t" + name + "<br>" : "";
         text += ort != null ? "Ort:\t\t" + ort + "<br>" : "";
         text += anbieter != null ? "Anbieter:\t" + anbieter + "<br>" : "";
@@ -256,7 +256,7 @@ public class Auto implements Comparable<Auto> {
         for (String s : extras)
             text += "<br>\t- " + s;
         text += "<br>";
-        text += "################################################################################" + "<br>";
+        text += "##############################################################################" + "<br>";
         text += "<br>";
 
         return text + "</html>";

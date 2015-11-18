@@ -13,11 +13,12 @@ import java.util.*;
  */
 public class Mobile {
 
+
     public static void main(String[] args) {
 
-        List<String> l = findeDateien();
-        finder(l);
-
+        List<Auto> autos = finder(findeDateien());
+       Anzeige box =  new Anzeige();
+        box.menu(autos);
     }
 
     public static LinkedList<String> findeDateien() {
@@ -38,6 +39,8 @@ public class Mobile {
         public static List<Auto> finder(List<String> dateien){
 
             LinkedList<String> con = new LinkedList<>();
+            List<Auto> autos = new ArrayList<Auto>();
+
 
 
             for (String s : dateien) {
@@ -49,8 +52,6 @@ public class Mobile {
                     System.out.println("Fehler beihm Lesen . . .");
                 }
             }
-
-            List<Auto> autos = new ArrayList<>();
 
             for (int index = 0; index < con.size(); index++) {
                 if (con.get(index).matches("\\w{2,3}\\s-\\s\\d{5}\\s\\w+.*")) {
@@ -66,130 +67,126 @@ public class Mobile {
                         autos.add(tmp);
                 }
             }
-
-            new Anzeige();
-            auswahl(autos);
-
             return autos;
         }
 
-    private static void jlist( List<Auto> autos){
-        Auto[] autoArray =  new Auto[autos.size()];
-        autos.toArray(autoArray);
-       JList<Auto> list = new JList<>(autoArray);
-        Anzeige box = new Anzeige();
-        //box.frame(autos);
-        //box.frame1(list);
-        box.menu(autos);
-    }
+//    private static void jlist( List<Auto> autos){
+//        Auto[] autoArray =  new Auto[autos.size()];
+//        autos.toArray(autoArray);
+//       JList<Auto> list = new JList<>(autoArray);
+//        Anzeige box = new Anzeige();
+//        //box.frame(autos);
+//        //box.frame1(list);
+//        box.menu(autos);
+//    }
 
 
 
-    public static void auswahl(List<Auto> autos){
-
-        String auswahl;
-        String aufab;
-        Scanner scan = new Scanner(System.in);
-
-        while (true) {
-
-            System.out.println("Bitte wählen Sie eine Sortierart.");
-            System.out.println("---------------------------------\n");
-            System.out.println("(1) Erstzulassung");
-            System.out.println("(2) Kilometerstand");
-            System.out.println("(3) Preis");
-            System.out.println("(4) Namen");
-            System.out.println("(x) Exit");
-
-
-            auswahl = scan.next();
-
-            switch (auswahl) {
-                case "1":
-                    System.out.println("Es wird nach der Erstzulassung sortiert!\n");
-                    System.out.println("(a) Aufsteigend");
-                    System.out.println("(b) Absteigend");
-                    aufab = scan.next();
-                    switch (aufab) {
-                        case "a":
-                            System.out.println();
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_EZ_RE);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        case "b":
-                            System.out.println();
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_EZ);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        default:
-                            System.out.println("Falsche Eingabe\n\n");
-                    }
-                    break;
-                case "2":
-                    System.out.println("Es wird nach dem Kilometerstrand sortiert!\n");
-                    System.out.println("(a) Aufsteigend");
-                    System.out.println("(b) Absteigend");
-                    aufab = scan.next();
-                    switch (aufab) {
-                        case "a":
-                            System.out.println("Es wird aufsteigend sortiert!\n");
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_KMSTAND_RE);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        case "b":
-                            System.out.println("Es wird absteigend sortiert!\n");
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_KMSTAND);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        default:
-                            System.out.println("Falsche Eingabe\n\n");
-                    }
-                    break;
-                case "3":
-                    System.out.println("Es wird nach dem Preis sortiert!\n");
-                    System.out.println("(a) Aufsteigend");
-                    System.out.println("(b) Absteigend");
-                    aufab = scan.next();
-                    switch (aufab) {
-                        case "a":
-                            System.out.println("Es wird aufsteigend sortiert!\n");
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_PREIS_RE);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        case "b":
-                            System.out.println("Es wird absteigend sortiert!\n");
-                            System.out.println("############################################################\n");
-                            autos.sort(Auto.SORT_PREIS);
-                            jlist(autos);
-                            System.out.println("############################################################\n");
-                            break;
-                        default:
-                            System.out.println("Falsche Eingabe\n\n");
-                    }
-                    break;
-                case "x":
-                    System.exit(0);
-                case "4":
-                    System.out.println("Es wird nach Namen sortiert!");
-                    System.out.println("############################################################\n");
-                    autos.sort(Auto.SORT_NAME);
-                    jlist(autos);
-                    System.out.println("############################################################\n");
-                    break;
-                default:
-                    System.out.println("Falsche Eingabe\n\n");
-            }
-
-        }
-    }
+//    public void auswahl(){
+//
+//        String auswahl;
+//        String aufab;
+//        Scanner scan = new Scanner(System.in);
+//
+//        while (true) {
+//
+//            System.out.println("Bitte wählen Sie eine Sortierart.");
+//            System.out.println("---------------------------------\n");
+//            System.out.println("(1) Erstzulassung");
+//            System.out.println("(2) Kilometerstand");
+//            System.out.println("(3) Preis");
+//            System.out.println("(4) Namen");
+//            System.out.println("(x) Exit");
+//
+//
+//            auswahl = scan.next();
+//
+//            switch (auswahl) {
+//                case "1":
+//                    System.out.println("Es wird nach der Erstzulassung sortiert!\n");
+//                    System.out.println("(a) Aufsteigend");
+//                    System.out.println("(b) Absteigend");
+//                    aufab = scan.next();
+//                    switch (aufab) {
+//                        case "a":
+//                            System.out.println();
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_EZ_RE);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        case "b":
+//                            System.out.println();
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_EZ);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        default:
+//                            System.out.println("Falsche Eingabe\n\n");
+//                    }
+//                    break;
+//                case "2":
+//                    System.out.println("Es wird nach dem Kilometerstrand sortiert!\n");
+//                    System.out.println("(a) Aufsteigend");
+//                    System.out.println("(b) Absteigend");
+//                    aufab = scan.next();
+//                    switch (aufab) {
+//                        case "a":
+//                            System.out.println("Es wird aufsteigend sortiert!\n");
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_KMSTAND_RE);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        case "b":
+//                            System.out.println("Es wird absteigend sortiert!\n");
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_KMSTAND);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        default:
+//                            System.out.println("Falsche Eingabe\n\n");
+//                    }
+//                    break;
+//                case "3":
+//                    System.out.println("Es wird nach dem Preis sortiert!\n");
+//                    System.out.println("(a) Aufsteigend");
+//                    System.out.println("(b) Absteigend");
+//                    aufab = scan.next();
+//                    switch (aufab) {
+//                        case "a":
+//                            System.out.println("Es wird aufsteigend sortiert!\n");
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_PREIS_RE);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        case "b":
+//                            System.out.println("Es wird absteigend sortiert!\n");
+//                            System.out.println("############################################################\n");
+//                            autos.sort(Auto.SORT_PREIS);
+//                            jlist(autos);
+//                            System.out.println("############################################################\n");
+//                            break;
+//                        default:
+//                            System.out.println("Falsche Eingabe\n\n");
+//                    }
+//                    break;
+//                case "x":
+//                    System.exit(0);
+//                case "4":
+//                    System.out.println("Es wird nach Namen sortiert!");
+//                    System.out.println("############################################################\n");
+//                    autos.sort(Auto.SORT_NAME);
+//                    jlist(autos);
+//                    System.out.println("############################################################\n");
+//                    break;
+//                default:
+//                    System.out.println("Falsche Eingabe\n\n");
+//            }
+//
+//        }
+//    }
    }
