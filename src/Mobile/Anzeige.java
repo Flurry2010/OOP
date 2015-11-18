@@ -34,7 +34,6 @@ public class Anzeige implements ActionListener{
         JFrame box = new JFrame("Auswahl");
         box.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        DefaultListModel listModel = new DefaultListModel();
         JList<Auto> list = new JList<>(listModel);
 
         JScrollPane listeSrcoller = new JScrollPane(list);
