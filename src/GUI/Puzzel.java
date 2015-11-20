@@ -93,12 +93,28 @@ public class Puzzel implements ActionListener {
 
         if(firstClick){
             firstClick = false;
+            lastIcon = buttons[0].getIcon();
             buttons[0].setIcon(null);
+          for(int i = 0; i < 1000; i++) {
+              int zufall = (int) (Math.random() * XX * YY);
+              switchButton(zufall);
+          }
+            while(lastButton % XX !=0)
+                switchButton(lastButton - 1);
+            while(lastButton / XX !=0)
+                switchButton(lastButton - XX);
 
+        }else {
+
+            int pos = Integer.parseInt(e.getActionCommand());
+            switchButton(pos);
+
+            if(isDone()){
+                buttons[0].setIcon(lastIcon);
+                firstClick = true;
+            }
         }
 
-        int pos = Integer.parseInt(e.getActionCommand());
-        switchButton(pos);
 
     }
 
