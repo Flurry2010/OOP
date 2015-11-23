@@ -18,16 +18,15 @@ import java.util.TreeMap;
  */
 public class PuzzelHA implements ActionListener{
 
-    private static final int XX = 4;
-    private static final int YY = 3;
+    private static int XX = 4;
+    private static int YY = 3;
     private String bildNr = "1";
     private JButton[][] buttons = new JButton[YY][XX];
     private int lastButton = 0;
     private Icon lastIcon = null;
     private boolean firstClick = true;
     private Map<String,BufferedImage> bilder = new TreeMap<>();
-    //private int w;
-    //private int h;
+
 
 
 
@@ -45,36 +44,34 @@ public class PuzzelHA implements ActionListener{
 
         JMenuBar menu = new JMenuBar();
         menu.setBorder(new LineBorder(Color.BLACK));
+
         JMenu spiel = new JMenu("Spiel");
         JMenuItem reset = new JMenuItem("Reset");
         spiel.add(reset);
+
         JMenu ansicht = new JMenu("Ansicht");
         JMenu bild = new JMenu("BildNr");
         ansicht.add(bild);
         ButtonGroup bg1 = new ButtonGroup();
-        JRadioButton bn1 = new JRadioButton("1");
+        JRadioButtonMenuItem bn1 = new JRadioButtonMenuItem("1");
         bn1.setSelected(true);
         bg1.add(bn1);
         bild.add(bn1);
+
         JMenu pg = new JMenu("Puzzelgröße");
         ansicht.add(pg);
         ButtonGroup bg2 = new ButtonGroup();
-        JRadioButton Pg1 = new JRadioButton("4x3");
-        Pg1.setSelected(true);
-        JRadioButton Pg2 = new JRadioButton("6x5");
-        JRadioButton Pg3 = new JRadioButton("8x7");
-        JRadioButton Pg4 = new JRadioButton("10x9");
-        JRadioButton Pg5 = new JRadioButton("12x11");
-        bg2.add(Pg1);
-        bg2.add(Pg2);
-        bg2.add(Pg3);
-        bg2.add(Pg4);
-        bg2.add(Pg5);
-        pg.add(Pg1);
-        pg.add(Pg2);
-        pg.add(Pg3);
-        pg.add(Pg4);
-        pg.add(Pg5);
+        JRadioButton pgb1 = new JRadioButton("4x3");
+        pgb1.setName("1");
+        pgb1.setSelected(true);
+        pg.add(pgb1);
+        for(int i = 2; i <= 5; i++) {
+            JRadioButtonMenuItem pgb = new JRadioButtonMenuItem("" + (i*3) + "x" + (i*3-1));
+            pgb.setName("" + i);
+            bg2.add(pgb);
+            pg.add(pgb);
+        }
+
         JMenu help = new JMenu("?");
         JMenuItem info = new JMenuItem("Info");
         help.add(info);
@@ -82,22 +79,20 @@ public class PuzzelHA implements ActionListener{
         try{
             String pfadName = "Y:\\3_XI\\XI_6\\302_SOP_OOP\\Bilder\\";
             String dateiName = "";
-            for (int i = 1; i < 255; i++) {
-                dateiName = "0" + i + ".jpg";
+            for (int z = 1; z < 255; z++) {
+                dateiName = "0" + z + ".jpg";
                 File img = new File(pfadName + dateiName);
                 if (img.exists()) {
                     BufferedImage bi = ImageIO.read(img);
                    BufferedImage nbi = resize(bi,800,600);
-                    //w = nbi.getWidth();
-                    //h = nbi.getHeight();
-                    bilder.put(""+i,nbi);
+                    bilder.put(""+z,nbi);
                 }
             }
             System.out.println("Es wurde " + bilder.size() + " Bilder gefunden!\n\n");
 
             for(int y = 0; y < YY; y++)
                 for(int x = 0; x < XX; x++){
-                    buttons[y][x] = new JButton(new ImageIcon(bilder.get(bildNr).getSubimage(x * (bilder.get(bildNr).getWidth() / XX), y * (bilder.get(bildNr).getHeight() / YY), bilder.get(bildNr).getWidth() / XX, bilder.get(bildNr).getHeight() / YY)));
+                    buttons[y][x] = new JButton(new ImageIcon(bilder.get(bildNr).getSubimage(x*(bilder.get(bildNr).getWidth()/XX), y*(bilder.get(bildNr).getHeight()/YY), bilder.get(bildNr).getWidth()/XX, bilder.get(bildNr).getHeight()/YY)));
                     buttons[y][x].setBorder(new LineBorder(Color.BLACK, 1));
                     buttons[y][x].setActionCommand("" + y + x);
                     buttons[y][x].setName(""+ y + x);
@@ -110,8 +105,9 @@ public class PuzzelHA implements ActionListener{
             e.printStackTrace();
         }
 
-        for(int i = 2; i <= bilder.size(); i++){
-            JRadioButton bn = new JRadioButton(""+i);
+        for(int j = 2; j <= bilder.size(); j++){
+            JRadioButtonMenuItem bn = new JRadioButtonMenuItem(""+j);
+            bn.setName(""+j);
             bg1.add(bn);
             bild.add(bn);
         }
@@ -168,7 +164,12 @@ public class PuzzelHA implements ActionListener{
 //    }
 //
     public void actionPerformed(ActionEvent e) {
-//
+
+        if(e.getSource()instanceof JRadioButtonMenuItem){
+            JRadioButtonMenuItem temp = (JRadioButtonMenuItem)e.getSource();
+            temp.getText();
+        }
+
 //        if(firstClick){
 //            firstClick = false;
 //            lastIcon = buttons[0].getIcon();
