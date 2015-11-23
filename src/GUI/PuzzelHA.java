@@ -18,7 +18,7 @@ import java.io.IOException;
 
         private static final int XX = 4;
         private static final int YY = 3;
-        private JButton[] buttons = new JButton[XX*YY];
+        private JButton[][] buttons = new JButton[XX][YY];
         private int lastButton = 0;
         private Icon lastIcon = null;
         private boolean firstClick = true;
