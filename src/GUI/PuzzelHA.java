@@ -20,14 +20,14 @@ public class PuzzelHA implements ActionListener{
 
     private static final int XX = 4;
     private static final int YY = 3;
+    private String bildNr = "1";
     private JButton[][] buttons = new JButton[YY][XX];
     private int lastButton = 0;
     private Icon lastIcon = null;
     private boolean firstClick = true;
     private Map<String,BufferedImage> bilder = new TreeMap<>();
-    private String bildNr = "1";
-    private int w;
-    private int h;
+    //private int w;
+    //private int h;
 
 
 
@@ -88,8 +88,8 @@ public class PuzzelHA implements ActionListener{
                 if (img.exists()) {
                     BufferedImage bi = ImageIO.read(img);
                    BufferedImage nbi = resize(bi,800,600);
-                    w = nbi.getWidth();
-                    h = nbi.getHeight();
+                    //w = nbi.getWidth();
+                    //h = nbi.getHeight();
                     bilder.put(""+i,nbi);
                 }
             }
@@ -97,7 +97,7 @@ public class PuzzelHA implements ActionListener{
 
             for(int y = 0; y < YY; y++)
                 for(int x = 0; x < XX; x++){
-                    buttons[y][x] = new JButton(new ImageIcon(bilder.get(bildNr).getSubimage(x * (w / XX), y * (h / YY), w / XX, h / YY)));
+                    buttons[y][x] = new JButton(new ImageIcon(bilder.get(bildNr).getSubimage(x * (bilder.get(bildNr).getWidth() / XX), y * (bilder.get(bildNr).getHeight() / YY), bilder.get(bildNr).getWidth() / XX, bilder.get(bildNr).getHeight() / YY)));
                     buttons[y][x].setBorder(new LineBorder(Color.BLACK, 1));
                     buttons[y][x].setActionCommand("" + y + x);
                     buttons[y][x].setName(""+ y + x);
