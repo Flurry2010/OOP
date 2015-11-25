@@ -210,12 +210,11 @@ public class PuzzelHA implements ActionListener {
                     int zufallX = (int) ((Math.random() * XX) + 0);
                     switchButton(zufallY, zufallX);
                 }
-                //ToDo: unwiederrufbare Operationen vermeiden?
-                // funktion klären und abfangen
-            /*while(lastButton % XX != 0)
-                switchButton(lastButton-1);
-            while (lastButton != "00")
-                switchButton(lastButton-XX);*/
+
+                while(lastButtonX!=0)
+                    switchButton(lastButtonY,lastButtonX-1);
+                while(lastButtonY!=0)
+                    switchButton(lastButtonY-1,lastButtonX);
 
             } else {
                 PuzzelHAButton tmp = (PuzzelHAButton) e.getSource();
@@ -231,9 +230,7 @@ public class PuzzelHA implements ActionListener {
 
         }else if(e.getSource() instanceof JMenuItem) {
             if (e.getActionCommand().equals("reset")) {
-                window.getContentPane().removeAll();
-                baueButton();
-                window.revalidate();
+                neu(XX,YY);
             }
 
             if(e.getSource() instanceof JRadioButtonMenuItem) {
@@ -287,9 +284,6 @@ public class PuzzelHA implements ActionListener {
         public PuzzelHAButton(Icon icon) {
             super(icon);
             this.firstIcon = icon;
-
-
-
         }
 
         public boolean getRight(){
