@@ -164,9 +164,9 @@ public class PuzzelHA implements ActionListener {
     //---------------------Spielablauf------------------------------------------------------------
     private boolean isDone() {
 
-        for (JButton[] b : buttons) {
-            for (JButton button : b) {
-                if (!button.getName().equals(button.getActionCommand()))
+        for (PuzzelHAButton[] b : buttons) {
+            for (PuzzelHAButton button : b) {
+                if(!button.getRight())
                     return false;
             }
         }
@@ -179,10 +179,6 @@ public class PuzzelHA implements ActionListener {
 
             buttons[lastButtonY][lastButtonX].setIcon(buttons[posY][posX].getIcon());
             buttons[posY][posX].setIcon(null);
-
-            String puffer = buttons[posY][posX].getName();
-            buttons[posY][posX].setName(buttons[(int) lastButtonY][lastButtonX].getName());
-            buttons[lastButtonY][lastButtonX].setName(puffer);
 
             lastButtonX = posX;
             lastButtonY = posY;
@@ -243,7 +239,7 @@ public class PuzzelHA implements ActionListener {
             if(e.getSource() instanceof JRadioButtonMenuItem) {
                 switch (e.getActionCommand()) {
                     case "g1":
-                        neu(4,3);
+                        neu(2,3);
                         break;
                     case "g2":
                         neu(4,3);
@@ -286,9 +282,25 @@ public class PuzzelHA implements ActionListener {
 
         private int posX;
         private int posY;
+        Icon firstIcon;
 
         public PuzzelHAButton(Icon icon) {
             super(icon);
+            this.firstIcon = icon;
+
+
+
+        }
+
+        public boolean getRight(){
+
+            if(this.getIcon() == null)
+                return this.firstIcon.equals(lastIcon);
+
+            if(this.getIcon().equals(firstIcon) == true) {
+                return true;
+            }
+            return false;
         }
 
         public int getPosX() {
