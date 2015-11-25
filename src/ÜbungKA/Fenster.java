@@ -190,7 +190,7 @@ public class Fenster {
         rechts.setLayout(new BorderLayout());
         DefaultListModel model = new DefaultListModel();
         JList<String> list = new JList<>(model);
-        model.addElement("BigInteger");
+        model.addElement("BigInteger   ");
         model.addElement("Char");
         model.addElement("Double");
         model.addElement("Float");
