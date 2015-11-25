@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -20,10 +19,10 @@ public class PuzzelHA implements ActionListener {
 
     private JFrame window;
     private JPanel game;
-    private int XX = 4;
+    private int XX = 2;
     private int YY = 3;
     private String bildNr = "1";
-    private PuzzelHAButton[][] buttons = new PuzzelHAButton[YY][XX];
+    private PuzzelHAButton[][] buttons;
     private int lastButtonX = 0;
     private int lastButtonY = 0;
     private Icon lastIcon = null;
@@ -33,7 +32,7 @@ public class PuzzelHA implements ActionListener {
 
     public static void main(String[] args) {
 
-        PuzzelHA pz = new PuzzelHA();
+        new PuzzelHA();
 
     }
 
@@ -52,28 +51,32 @@ public class PuzzelHA implements ActionListener {
 
         JMenu spiel = new JMenu("Spiel");
         JMenuItem reset = new JMenuItem("Reset");
+        reset.addActionListener(this);
+        reset.setActionCommand("reset");
         spiel.add(reset);
 
         JMenu ansicht = new JMenu("Ansicht");
-        JMenu bild = new JMenu("BildNr");
+        JMenu bild = new JMenu("BildNr.");
         ansicht.add(bild);
         ButtonGroup bg1 = new ButtonGroup();
-        JRadioButtonMenuItem bn1 = new JRadioButtonMenuItem("1");
-        bn1.setSelected(true);
-        bg1.add(bn1);
-        bild.add(bn1);
+
+        for (int j = 1; j <= bilder.size(); j++) {
+            JRadioButtonMenuItem bn = new JRadioButtonMenuItem("" + j);
+            bn.setName(""+j);
+            bn.setActionCommand("b");
+            bn.addActionListener(this);
+            bg1.add(bn);
+            bild.add(bn);
+        }
 
         JMenu pg = new JMenu("Puzzelgröße");
         ansicht.add(pg);
         ButtonGroup bg2 = new ButtonGroup();
-        JRadioButton pgb1 = new JRadioButton("4x3");
-        pgb1.setName("1");
-        pgb1.setSelected(true);
-        pg.add(pgb1);
 
-        for (int i = 2; i <= 5; i++) {
-            JRadioButtonMenuItem pgb = new JRadioButtonMenuItem("" + (i * 3) + "x" + (i * 3 - 1));
-            pgb.setName("" + i);
+        for (int i = 1; i <= 4; i++) {
+            JRadioButtonMenuItem pgb = new JRadioButtonMenuItem("" + (i * 2) + "x" + (i * 2-1));
+            pgb.setActionCommand("g" + i);
+            pgb.addActionListener(this);
             bg2.add(pgb);
             pg.add(pgb);
         }
@@ -81,13 +84,6 @@ public class PuzzelHA implements ActionListener {
         JMenu help = new JMenu("?");
         JMenuItem info = new JMenuItem("Info");
         help.add(info);
-
-        for (int j = 2; j <= bilder.size(); j++) {
-            JRadioButtonMenuItem bn = new JRadioButtonMenuItem("" + j);
-            bn.setName("" + j);
-            bg1.add(bn);
-            bild.add(bn);
-        }
 
         menu.add(spiel);
         menu.add(ansicht);
@@ -99,7 +95,6 @@ public class PuzzelHA implements ActionListener {
 
         baueButton();
 
-        window.add(game);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         window.pack();
@@ -107,14 +102,15 @@ public class PuzzelHA implements ActionListener {
     }
 
     //--------------------------Bilder finden und Map füllen---------------------------------------------
-    public Map<String, BufferedImage> getBilder() {
+    private Map<String, BufferedImage> getBilder() {
 
         try {
             Map<String, BufferedImage> temp = new TreeMap<>();
-            String pfadName = "Y:\\3_XI\\XI_6\\302_SOP_OOP\\Bilder\\";
+           // String pfadName = "Y:\\3_XI\\XI_6\\302_SOP_OOP\\Bilder\\";
+            String pfadName = "C:\\Users\\Flurry\\OOP\\OOP\\Bilder\\";
             String dateiName = "";
             for (int z = 1; z < 255; z++) {
-                dateiName = "0" + z + ".jpg";
+                dateiName = z + ".jpg";
                 File img = new File(pfadName + dateiName);
                 if (img.exists()) {
                     BufferedImage bi = ImageIO.read(img);
@@ -146,9 +142,10 @@ public class PuzzelHA implements ActionListener {
     }
 
     //----------------Buttons erstellen------------------------------------------------------------------------
-    public void baueButton() {
+    private void baueButton() {
 
-        game = new JPanel(new GridLayout(YY,XX));
+        game = new JPanel(new GridLayout(YY, XX));
+        buttons = new PuzzelHAButton[YY][XX];
 
         for (int y = 0; y < YY; y++)
             for (int x = 0; x < XX; x++) {
@@ -161,9 +158,7 @@ public class PuzzelHA implements ActionListener {
                 buttons[y][x].addActionListener(this);
                 this.game.add(buttons[y][x]);
             }
-        window.add(game);
-        window.validate();
-
+        window.getContentPane().add(game);
     }
 
     //---------------------Spielablauf------------------------------------------------------------
@@ -209,37 +204,111 @@ public class PuzzelHA implements ActionListener {
     //--------------------ActionEvent-------------------------------------------------------------
     public void actionPerformed(ActionEvent e) {
 
-        if(){
-
-        }
-
-
-        if (firstClick) {
-            firstClick = false;
-            lastIcon = buttons[0][0].getIcon();
-            buttons[0][0].setIcon(null);
-            for (int i = 0; i < 10000; i++) {
-                int zufallY = (int) ((Math.random() * YY) + 0);
-                int zufallX = (int) ((Math.random() * XX) + 0);
-                switchButton(zufallY, zufallX);
-            }
-            //ToDo: unwiederrufbare Operationen vermeiden?
-            // funktion klären und abfangen
+        if(e.getSource() instanceof PuzzelHAButton){
+            if (firstClick) {
+                firstClick = false;
+                lastIcon = buttons[0][0].getIcon();
+                buttons[0][0].setIcon(null);
+                for (int i = 0; i < 10000; i++) {
+                    int zufallY = (int) ((Math.random() * YY) + 0);
+                    int zufallX = (int) ((Math.random() * XX) + 0);
+                    switchButton(zufallY, zufallX);
+                }
+                //ToDo: unwiederrufbare Operationen vermeiden?
+                // funktion klären und abfangen
             /*while(lastButton % XX != 0)
                 switchButton(lastButton-1);
             while (lastButton != "00")
                 switchButton(lastButton-XX);*/
 
-        } else {
-            PuzzelHAButton tmp = (PuzzelHAButton) e.getSource();
-            int posY = tmp.getPosY();
-            int posX = tmp.getPosX();
+            } else {
+                PuzzelHAButton tmp = (PuzzelHAButton) e.getSource();
+                int posY = tmp.getPosY();
+                int posX = tmp.getPosX();
 
-            switchButton(posY, posX);
-            if (isDone()) {
-                buttons[0][0].setIcon(lastIcon);
-                firstClick = true;
+                switchButton(posY, posX);
+                if (isDone()) {
+                    buttons[0][0].setIcon(lastIcon);
+                    firstClick = true;
+                }
             }
+
+        }else if(e.getSource() instanceof JMenuItem) {
+            if (e.getActionCommand().equals("reset")) {
+                window.getContentPane().removeAll();
+                baueButton();
+                window.revalidate();
+            }
+
+            if(e.getSource() instanceof JRadioButtonMenuItem) {
+                switch (e.getActionCommand()) {
+                    case "g1":
+                        neu(4,3);
+                        break;
+                    case "g2":
+                        neu(4,3);
+                        break;
+                    case "g3":
+                        neu(6,5);
+                        break;
+                    case "g4":
+                        neu(8,7);
+                        break;
+                    case "b":
+                        JRadioButtonMenuItem temp = (JRadioButtonMenuItem)e.getSource();
+                        bildNr=temp.getName();
+                        neu(XX,YY);
+                        break;
+                    default:
+                        System.out.println("jhbsdusdv");
+                        break;
+                }
+            }
+
         }
     }
+
+    //--------------------refresh Window----------------------------------
+    private void neu (int xx, int yy){
+        XX=xx;
+        YY=yy;
+        lastButtonY=0;
+        lastButtonX=0;
+        lastIcon=null;
+        firstClick=true;
+        window.getContentPane().removeAll();
+        baueButton();
+        window.revalidate();
+    }
+
+    //---------Neue Klasse Button
+    public class PuzzelHAButton extends JButton {
+
+        private int posX;
+        private int posY;
+
+        public PuzzelHAButton(Icon icon) {
+            super(icon);
+        }
+
+        public int getPosX() {
+            return posX;
+        }
+
+        public void setPosX(int posX) {
+
+            this.posX = posX;
+        }
+
+        public int getPosY() {
+
+            return posY;
+        }
+
+        public void setPosY(int posY) {
+            this.posY = posY;
+        }
+    }
+
+
 }

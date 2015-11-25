@@ -1,4 +1,4 @@
-package GUI;
+package Mobile;
 
 import javax.swing.*;
 
