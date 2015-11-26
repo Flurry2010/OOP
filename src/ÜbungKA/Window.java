@@ -131,11 +131,12 @@ public class Window implements ActionListener {
                             sb.append("\n");
                         }
                         ta.setText(sb.toString());
-                    } catch
-                            (IOException e) {
+
+                    }catch (FileNotFoundException e) {
+                        JOptionPane.showMessageDialog(window, "Datei nicht gefunden!", "Dateifehler", JOptionPane.ERROR_MESSAGE);
+                    }catch(IOException e) {
                         JOptionPane.showMessageDialog(window, "Fehler beim einlesen!", "Dateifehler", JOptionPane.ERROR_MESSAGE);
                     }
-
                     tfL.setText("");
                     break;
 
@@ -145,7 +146,7 @@ public class Window implements ActionListener {
                         bw.write(ta.getText());
                     } catch
                             (IOException e) {
-                        JOptionPane.showMessageDialog(window, "Fehler beim schreiben!", "Datei konnte nicht gespeichert werden", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(window, "Fehler beim schreiben!", "Dateifehler", JOptionPane.ERROR_MESSAGE);
                     }
                     tfL.setText("");
                     break;
