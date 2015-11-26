@@ -19,7 +19,7 @@ public class PuzzelHA implements ActionListener {
 
     private JFrame window;
     private JPanel game;
-    private int XX = 2;
+    private int XX = 4;
     private int YY = 3;
     private String bildNr = "1";
     private PuzzelHAButton[][] buttons;
@@ -40,14 +40,12 @@ public class PuzzelHA implements ActionListener {
 
         window = new JFrame("PuzzelHA");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 600);
-        //window.setLayout(new GridLayout(YY, XX));
-
+        // window.setSize(800, 600);
 
 
         //-----------------Menü erstellen---------------------------------------
         JMenuBar menu = new JMenuBar();
-        menu.setBorder(new LineBorder(Color.BLACK));
+        menu.setBorder(new LineBorder(Color.BLACK, 1));
 
         JMenu spiel = new JMenu("Spiel");
         JMenuItem reset = new JMenuItem("Reset");
@@ -62,19 +60,26 @@ public class PuzzelHA implements ActionListener {
 
         for (int j = 1; j <= bilder.size(); j++) {
             JRadioButtonMenuItem bn = new JRadioButtonMenuItem("" + j);
-            bn.setName(""+j);
+            bn.setName("" + j);
             bn.setActionCommand("b");
             bn.addActionListener(this);
             bg1.add(bn);
             bild.add(bn);
         }
 
+        //--------------RadioButtons für Puzzelgröße----------------------------------
         JMenu pg = new JMenu("Puzzelgröße");
         ansicht.add(pg);
         ButtonGroup bg2 = new ButtonGroup();
+        JRadioButtonMenuItem pgb1 = new JRadioButtonMenuItem("2x3");
+        pgb1.setActionCommand("g1");
+        pgb1.addActionListener(this);
+        bg2.add(pgb1);
+        pg.add(pgb1);
 
-        for (int i = 1; i <= 4; i++) {
-            JRadioButtonMenuItem pgb = new JRadioButtonMenuItem("" + (i * 2) + "x" + (i * 2-1));
+
+        for (int i = 2; i <= 4; i++) {
+            JRadioButtonMenuItem pgb = new JRadioButtonMenuItem("" + (i * 2) + "x" + (i * 2 - 1));
             pgb.setActionCommand("g" + i);
             pgb.addActionListener(this);
             bg2.add(pgb);
@@ -83,6 +88,8 @@ public class PuzzelHA implements ActionListener {
 
         JMenu help = new JMenu("?");
         JMenuItem info = new JMenuItem("Info");
+        info.addActionListener(this);
+        info.setActionCommand("?");
         help.add(info);
 
         menu.add(spiel);
@@ -106,11 +113,11 @@ public class PuzzelHA implements ActionListener {
 
         try {
             Map<String, BufferedImage> temp = new TreeMap<>();
-           // String pfadName = "Y:\\3_XI\\XI_6\\302_SOP_OOP\\Bilder\\";
-            String pfadName = "C:\\Users\\Flurry\\OOP\\OOP\\Bilder\\";
+            String pfadName = "Y:\\3_XI\\XI_6\\302_SOP_OOP\\Bilder\\";
+            //String pfadName = "C:\\Users\\Flurry\\OOP\\OOP\\Bilder\\";
             String dateiName = "";
             for (int z = 1; z < 255; z++) {
-                dateiName = z + ".jpg";
+                dateiName = "0" + z + ".jpg";
                 File img = new File(pfadName + dateiName);
                 if (img.exists()) {
                     BufferedImage bi = ImageIO.read(img);
@@ -166,7 +173,7 @@ public class PuzzelHA implements ActionListener {
 
         for (PuzzelHAButton[] b : buttons) {
             for (PuzzelHAButton button : b) {
-                if(!button.getRight())
+                if (!button.getRight())
                     return false;
             }
         }
@@ -200,7 +207,7 @@ public class PuzzelHA implements ActionListener {
     //--------------------ActionEvent-------------------------------------------------------------
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() instanceof PuzzelHAButton){
+        if (e.getSource() instanceof PuzzelHAButton) {
             if (firstClick) {
                 firstClick = false;
                 lastIcon = buttons[0][0].getIcon();
@@ -211,10 +218,10 @@ public class PuzzelHA implements ActionListener {
                     switchButton(zufallY, zufallX);
                 }
 
-                while(lastButtonX!=0)
-                    switchButton(lastButtonY,lastButtonX-1);
-                while(lastButtonY!=0)
-                    switchButton(lastButtonY-1,lastButtonX);
+                while (lastButtonX != 0)
+                    switchButton(lastButtonY, lastButtonX - 1);
+                while (lastButtonY != 0)
+                    switchButton(lastButtonY - 1, lastButtonX);
 
             } else {
                 PuzzelHAButton tmp = (PuzzelHAButton) e.getSource();
@@ -228,29 +235,42 @@ public class PuzzelHA implements ActionListener {
                 }
             }
 
-        }else if(e.getSource() instanceof JMenuItem) {
+
+        } else if (e.getSource() instanceof JMenuItem) {
             if (e.getActionCommand().equals("reset")) {
-                neu(XX,YY);
+                neu(XX, YY);
             }
 
-            if(e.getSource() instanceof JRadioButtonMenuItem) {
+            if (e.getActionCommand().equals("?")) {
+                JFrame inf = new JFrame("Info");
+                inf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                JLabel jl = new JLabel();
+                jl.setIcon(new ImageIcon("modify.jpg"));
+                inf.add(jl, BorderLayout.CENTER);
+                inf.setLocationRelativeTo(window);
+                inf.pack();
+                inf.setResizable(false);
+                inf.setVisible(true);
+            }
+
+            if (e.getSource() instanceof JRadioButtonMenuItem) {
                 switch (e.getActionCommand()) {
                     case "g1":
-                        neu(2,3);
+                        neu(2, 3);
                         break;
                     case "g2":
-                        neu(4,3);
+                        neu(4, 3);
                         break;
                     case "g3":
-                        neu(6,5);
+                        neu(6, 5);
                         break;
                     case "g4":
-                        neu(8,7);
+                        neu(8, 7);
                         break;
                     case "b":
-                        JRadioButtonMenuItem temp = (JRadioButtonMenuItem)e.getSource();
-                        bildNr=temp.getName();
-                        neu(XX,YY);
+                        JRadioButtonMenuItem temp = (JRadioButtonMenuItem) e.getSource();
+                        bildNr = temp.getName();
+                        neu(XX, YY);
                         break;
                     default:
                         System.out.println("jhbsdusdv");
@@ -262,13 +282,13 @@ public class PuzzelHA implements ActionListener {
     }
 
     //--------------------refresh Window----------------------------------
-    private void neu (int xx, int yy){
-        XX=xx;
-        YY=yy;
-        lastButtonY=0;
-        lastButtonX=0;
-        lastIcon=null;
-        firstClick=true;
+    private void neu(int xx, int yy) {
+        XX = xx;
+        YY = yy;
+        lastButtonY = 0;
+        lastButtonX = 0;
+        lastIcon = null;
+        firstClick = true;
         window.getContentPane().removeAll();
         baueButton();
         window.revalidate();
@@ -286,12 +306,12 @@ public class PuzzelHA implements ActionListener {
             this.firstIcon = icon;
         }
 
-        public boolean getRight(){
+        public boolean getRight() {
 
-            if(this.getIcon() == null)
+            if (this.getIcon() == null)
                 return this.firstIcon.equals(lastIcon);
 
-            if(this.getIcon().equals(firstIcon) == true) {
+            if (this.getIcon().equals(firstIcon) == true) {
                 return true;
             }
             return false;
