@@ -156,8 +156,8 @@ public class Window implements ActionListener {
                         for (int i = Integer.parseInt(tfM1.getText()); i >= 0; i--)
                             ta.append(tfM2.getText());
                     }catch
-                            (NumberFormatException e1) {
-                        JOptionPane.showMessageDialog(window,"Fehler im Feld Anzahl!","Formatfehler", JOptionPane.ERROR_MESSAGE);
+                            (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(window,"Fehler im Feld Anzahl!", "Formatfehler", JOptionPane.ERROR_MESSAGE);
                     }
                     tfM1.setText("");
                     tfM2.setText("");

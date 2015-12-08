@@ -273,7 +273,7 @@ public class PuzzelHA implements ActionListener {
                         neu(XX, YY);
                         break;
                     default:
-                        System.out.println("jhbsdusdv");
+                        System.out.println("Test");
                         break;
                 }
             }
