@@ -20,7 +20,6 @@ public class NewListModel {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
         MyModel lm = new MyModel();
         JList<Integer> jl = new JList<>(lm);
         JButton b = new JButton("ADD");
@@ -31,14 +30,11 @@ public class NewListModel {
             }
         });
 
-
         JScrollPane jlp = new JScrollPane(jl);
         window.add(jlp);
         window.add(b,BorderLayout.SOUTH);
         window.setSize(200,200);
         window.setVisible(true);
-
-
     }
 
 
