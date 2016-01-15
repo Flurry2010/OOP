@@ -19,7 +19,7 @@ public class HACal {
         backg.add(eingabe);
         backg.add(ok);
         backg.add(tag);
-
+//
         frame.add(backg,BorderLayout.NORTH);
         frame.setSize(800,800);
         frame.setLocationRelativeTo(null);
