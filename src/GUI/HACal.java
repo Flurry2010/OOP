@@ -32,6 +32,7 @@ public class HACal {
                 try {
                     cal.setTime(df.parse(eingabe.getText()));
                     tag.setText(DAYS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+                    frame.pack();
                 }catch (ParseException e1){
                     JOptionPane.showMessageDialog(frame,"Die Eingabe hat das falsche Format: TT.MM.JJJJ", "Fehler im Datum",JOptionPane.WARNING_MESSAGE);
                 }
