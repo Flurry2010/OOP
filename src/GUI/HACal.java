@@ -21,10 +21,14 @@ public class HACal {
         backg.add(tag);
 
         frame.add(backg,BorderLayout.NORTH);
-        frame.setSize(800,800);
-        frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public String calc (int x){
+
+
+        return "x";
     }
 
 
