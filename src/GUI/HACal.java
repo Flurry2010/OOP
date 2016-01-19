@@ -22,6 +22,7 @@ public class HACal {
 
         frame.add(backg,BorderLayout.NORTH);
         frame.setLocationRelativeTo(null);
+        frame.pack();
         frame.setVisible(true);
     }
 
