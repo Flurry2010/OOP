@@ -15,13 +15,14 @@ public class HACal {
     public HACal(){
         JFrame frame = new JFrame("HA Calender");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel backg = new JPanel(new GridLayout(1,3));
+        JPanel backg = new JPanel(new FlowLayout());
         backg.add(eingabe);
         backg.add(ok);
         backg.add(tag);
-//
+
         frame.add(backg,BorderLayout.NORTH);
         frame.setSize(800,800);
+        frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
