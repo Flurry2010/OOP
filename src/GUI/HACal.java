@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,7 +20,6 @@ public class HACal {
 
         GregorianCalendar cal = new GregorianCalendar();
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-
         JPanel backg = new JPanel(new FlowLayout());
         JTextField eingabe = new JTextField(10);
        // JFormattedTextField eingabe = new JFormattedTextField(new Date());
