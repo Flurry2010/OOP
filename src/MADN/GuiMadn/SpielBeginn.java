@@ -54,15 +54,16 @@ public class SpielBeginn extends JDialog {
                 else if(dl.getX() > groesse-dl.getWidth()*2 && dl.getY() < dl.getHeight()){
                     dl.setLocation(groesse - dl.getWidth(), 0);
                 }
-                //unten links
-                else if(dl.getX() < dl.getWidth() && dl.getY() > groesse-dl.getHeight()){
-                    dl.setLocation(0, groesse - dl.getHeight());
+                //über links unten
+                else if(dl.getX()<dl.getWidth()&& dl.getY() > groesse-dl.getHeight()*2){
+                    dl.setLocation(0,groesse-dl.getHeight());
+
                 }
-//                else if(dl.getX() > dl.getWidth() && dl.getY() > dl.getHeight()){
-//                    dl.setLocation(groesse - dl.getWidth(), groesse - dl.getHeight());
-//                }
+                //über rechts unten
+                else if(dl.getX()>groesse-dl.getWidth()*2&& dl.getY() > groesse-dl.getHeight()*2) {
+                    dl.setLocation(groesse - dl.getWidth(), groesse - dl.getHeight());
 
-
+                }
             }
         };
 
