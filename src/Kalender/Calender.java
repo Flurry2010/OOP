@@ -5,8 +5,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -22,9 +25,13 @@ public class Calender {
     JLabel jahr = new JLabel();
     JPanel blatt = new JPanel(new GridLayout(5,7));
     JFrame frame = new JFrame();
+    Date toDay = new Date();
+
 
     private static final String[] DAYS = {"So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"};
     private static final String[] DAYS1 = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+
+
 
     public Calender(){
 
@@ -36,13 +43,11 @@ public class Calender {
                 if(e.getSource() instanceof JButton);
                 switch (e.getActionCommand()){
                     case "LAST":
-                        cal.set(Calendar.DAY_OF_MONTH, 1);
                         cal.add(Calendar.MONTH, -1);
                         frame.remove(blatt);
                         switchMonth();
                         break;
                     case "NEXT":
-                        cal.set(Calendar.DAY_OF_MONTH, 1);
                         cal.add(Calendar.MONTH,1);
                         frame.remove(blatt);
                         switchMonth();
@@ -50,6 +55,8 @@ public class Calender {
                 }
             }
         };
+
+
 
         JPanel menu = new JPanel(new GridLayout(1,3));
         JButton last = new JButton("LAST");
@@ -73,46 +80,8 @@ public class Calender {
         monat.setText(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.GERMAN));
         monat.setHorizontalAlignment(SwingConstants.CENTER);
 
-        if(cal.get(Calendar.DAY_OF_MONTH)!= 1) {
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            for (int i = 0; i < cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                JLabel tag = new JLabel(cal.get(Calendar.DAY_OF_MONTH) + "");
-                tag.setHorizontalAlignment(SwingConstants.CENTER);
-                JLabel tag1 = new JLabel(DAYS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
-                if(cal.get(Calendar.DAY_OF_MONTH) != cal.getActualMaximum(Calendar.DAY_OF_MONTH))
-                cal.add(Calendar.DAY_OF_WEEK, 1);
-                tag1.setHorizontalAlignment(SwingConstants.CENTER);
-                JPanel back = new JPanel(new GridLayout(2, 1));
-                back.setBorder(new LineBorder(Color.BLACK));
-                back.add(tag);
-                back.add(tag1);
-                blatt.add(back);
-
-            }
-            for(int j = cal.getActualMaximum(Calendar.DAY_OF_MONTH); j < 35; j++){
-                blatt.add(new JLabel());
-            }
-            frame.add(blatt, BorderLayout.CENTER);
-        }
-        else{
-            for (int i = 0; i < cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                JLabel tag = new JLabel(cal.get(Calendar.DAY_OF_MONTH) + "");
-                tag.setHorizontalAlignment(SwingConstants.CENTER);
-                JLabel tag1 = new JLabel(DAYS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
-                if(cal.get(Calendar.DAY_OF_MONTH) != cal.getActualMaximum(Calendar.DAY_OF_MONTH))
-                cal.add(Calendar.DAY_OF_WEEK, 1);
-                tag1.setHorizontalAlignment(SwingConstants.CENTER);
-                JPanel back = new JPanel(new GridLayout(2, 1));
-                back.setBorder(new LineBorder(Color.BLACK));
-                back.add(tag);
-                back.add(tag1);
-                blatt.add(back);
-            }
-            for(int j = cal.getActualMaximum(Calendar.DAY_OF_MONTH); j < 35; j++){
-                blatt.add(new JLabel());
-            }
-            frame.add(blatt, BorderLayout.CENTER);
-        }
+        toDay=cal.getTime();
+        switchMonth();
 
         frame.add(menu,BorderLayout.NORTH);
         frame.setSize(grosse, grosse);
@@ -127,16 +96,30 @@ public class Calender {
         jahr.setHorizontalAlignment(SwingConstants.CENTER);
         monat.setText(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.GERMAN));
         monat.setHorizontalAlignment(SwingConstants.CENTER);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
 
+        MouseAdapter ma = new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+
+                if(e.getSource() instanceof MyLabel){
+                    new Popup(monat.getText()+" "+jahr.getText(),(MyLabel)e.getSource());
+
+                }
+            }
+        };
 
             for (int i = 0; i < cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                JLabel tag = new JLabel(cal.get(Calendar.DAY_OF_MONTH) + "");
+                MyLabel tag = new MyLabel(cal.get(Calendar.DAY_OF_MONTH) + "");
                 tag.setHorizontalAlignment(SwingConstants.CENTER);
-                JLabel tag1 = new JLabel(DAYS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+                MyLabel tag1 = new MyLabel(DAYS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
                 if(cal.get(Calendar.DAY_OF_MONTH) != cal.getActualMaximum(Calendar.DAY_OF_MONTH))
                 cal.add(Calendar.DAY_OF_WEEK, 1);
                 tag1.setHorizontalAlignment(SwingConstants.CENTER);
                 JPanel back = new JPanel(new GridLayout(2, 1));
+                tag.addMouseListener(ma);
+                tag1.addMouseListener(ma);
                 back.setBorder(new LineBorder(Color.BLACK));
                 back.add(tag);
                 back.add(tag1);
@@ -149,6 +132,7 @@ public class Calender {
 
         frame.add(blatt, BorderLayout.CENTER);
     }
+
 
     public static void main(String[] args) {
 
