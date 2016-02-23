@@ -39,8 +39,8 @@ public class Simon extends JFrame {
         for(int i = 0; i < 4; i++){
             JButton jb = buttons[i] = new JButton();
             jb.setBackground(colors[i]);
-            jb.setOpaque(true);
             jb.setContentAreaFilled(false);
+            jb.setOpaque(true);
             jb.setPreferredSize(new Dimension(100, 100));
             simonP.add(jb);
         }
