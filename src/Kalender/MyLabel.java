@@ -1,6 +1,7 @@
 package Kalender;
 
 import javax.swing.*;
+<<<<<<< HEAD
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,4 +75,36 @@ public class MyLabel extends JLabel {
         MyLabel ml = new MyLabel("OOP Kausur","07:00","11:00",Calender.cal.getTime());
         ml.gui();
     }
+=======
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+/**
+ * Created by Flurry on 28.01.2016.
+ */
+public class MyLabel extends JLabel{
+
+
+    private Termin termin;
+    private Termin[] lager = new Termin[1];
+
+
+
+    public MyLabel(String text){
+        super(text);
+    }
+
+
+    public void setTermin(String y){
+        lager[0] = new Termin(y);
+    }
+
+    public Termin getTermin(){
+        return this.lager[0];
+    }
+
+
+>>>>>>> origin/master
 }
