@@ -13,42 +13,53 @@ import java.awt.event.ActionListener;
  */
 public class Simon extends JFrame {
 
-    private Automat auto;
+    private Automat automat;
     private JButton button;
 
 
     public Simon(){
         super("Simon");
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel jp = new JPanel(new CardLayout());
 
-        JPanel startP = new JPanel();
+
+
+        JPanel startP = new JPanel(new BorderLayout());
         JButton startB = new JButton("START");
-        startB.addActionListener(new ActionListener() {
 
+        ActionListener actL = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)jp.getLayout()).show(jp,"Spiel");
+               automat.schalten(e);
             }
-        });
-        startP.add(startB);
+        };
 
-        JPanel simonP = new JPanel();
+        startB.addActionListener(actL);
+        startP.add(startB,BorderLayout.CENTER);
+
+        JPanel simonP = new JPanel(new GridLayout(2,2));
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
         JButton[] buttons = new JButton[4];
+
+        automat = new Automat(jp,buttons);
+
         for(int i = 0; i < 4; i++){
             JButton jb = buttons[i] = new JButton();
             jb.setBackground(colors[i]);
             jb.setContentAreaFilled(false);
             jb.setOpaque(true);
             jb.setPreferredSize(new Dimension(100, 100));
+            jb.addActionListener(actL);
             simonP.add(jb);
         }
 
 
-        JPanel weiterP = new JPanel();
+        JPanel weiterP = new JPanel(new BorderLayout());
         JButton weiterB = new JButton("WEITER");
-        weiterP.add(weiterB);
+
+        weiterB.addActionListener(actL);
+        weiterP.add(weiterB,BorderLayout.CENTER);
 
         jp.add(startP,"Start");
         jp.add(simonP,"Spiel");
@@ -73,6 +84,7 @@ public class Simon extends JFrame {
 
 
     public static void main(String[] args) {
+
         new Simon();
     }
 
