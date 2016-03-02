@@ -27,6 +27,7 @@ public class Simon extends JFrame {
         JPanel startP = new JPanel(new BorderLayout());
         JButton startB = new JButton();
         startB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_start.png"));
+        startB.setBorder(null);
 
 
         ActionListener actL = new ActionListener() {
@@ -40,17 +41,19 @@ public class Simon extends JFrame {
 
         JPanel simonP = new JPanel(new GridLayout(2,2));
         //Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
-        Icon[] icon1 = {new ImageIcon("src/Simon_Sagt/bilder/simon_grün.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_rot.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_gelb.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_blau.png")};
+        Icon[] icon = {new ImageIcon("src/Simon_Sagt/bilder/simon_hell-grün.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-rot.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-gelb.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-blau.png")};
         JButton[] buttons = new JButton[4];
 
         automat = new Automat(jp,buttons);
 
         for(int i = 0; i < 4; i++){
             JButton jb = buttons[i] = new JButton();
-            jb.setIcon(icon1[i]);
+            jb.setIcon(icon[i]);
+            jb.setBorder(null);
+            jb.setName(""+i);
             jb.setContentAreaFilled(false);
             jb.setOpaque(true);
-            //jb.setPreferredSize(new Dimension(100, 100));
+            jb.setPreferredSize(new Dimension(125, 125));
             jb.addActionListener(actL);
             simonP.add(jb);
         }
@@ -59,12 +62,14 @@ public class Simon extends JFrame {
         JPanel weiterP = new JPanel(new BorderLayout());
         JButton weiterB = new JButton();
         weiterB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_weiter.png"));
+        weiterB.setBorder(null);
         weiterB.addActionListener(actL);
         weiterP.add(weiterB,BorderLayout.CENTER);
 
         JPanel nextP = new JPanel(new BorderLayout());
         JButton nextB = new JButton();
         nextB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_next.png"));
+        nextB.setBorder(null);
         nextB.addActionListener(actL);
         nextP.add(nextB, BorderLayout.CENTER);
 

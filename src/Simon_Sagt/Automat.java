@@ -17,7 +17,7 @@ public class Automat {
     private List<JButton> farben = new ArrayList<>();
     private int zustand = 1;
     private JPanel jp;
-    private Icon[] hell = {new ImageIcon("src/Simon_Sagt/bilder/simon_hell-grün.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-rot.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-gelb.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_hell-blau.png")};
+    private Icon[] hell = {new ImageIcon("src/Simon_Sagt/bilder/simon_grün.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_rot.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_gelb.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_blau.png")};
 
 
 
@@ -53,7 +53,7 @@ public class Automat {
                             //Color c = jb.getBackground();
                             Icon c = jb.getIcon();
                             //jb.setBackground(new Color(c.getRGB() | 0x808080)); //ff8080 RGB Farbe wird heller
-                            jb.setIcon(hell[stelle]);
+                            jb.setIcon(hell[Integer.parseInt(jb.getName())]);
 
                             try {
                                 sleep(2000);
@@ -83,7 +83,6 @@ public class Automat {
                 break;
 
             case 4:
-                System.out.println("bin da");
                 if (e.getSource() != farben.get(pos)) {
                     zustand = 1;
                     farben.clear();
@@ -93,13 +92,11 @@ public class Automat {
                     System.out.println("war falsch");
                 } else if (pos < farben.size() - 1) {
                     pos++;
-                    System.out.println("war richtig");
                 }
                 else {
                     zustand = 1;
                     pos = 0;
                     ((CardLayout) jp.getLayout()).show(jp, "Next");
-                    System.out.println("geht weiter");
                 }
         }
     }
