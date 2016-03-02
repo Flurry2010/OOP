@@ -28,6 +28,8 @@ public class Simon extends JFrame {
 
         JPanel startP = new JPanel(new BorderLayout());
         JButton startB = new JButton("START");
+        startB.setIcon(new ImageIcon("simon_start.png"));
+        startB.setPreferredSize(new Dimension(100, 100));
 
         ActionListener actL = new ActionListener() {
             public void actionPerformed(ActionEvent e) {

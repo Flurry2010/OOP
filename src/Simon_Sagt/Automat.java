@@ -19,6 +19,7 @@ public class Automat {
     private JPanel jp;
 
 
+
     public Automat(JPanel jp, JButton[] buttons) {
         this.jp = jp;
         this.buttons = buttons;
