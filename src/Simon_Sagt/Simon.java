@@ -1,7 +1,5 @@
 package Simon_Sagt;
 
-import com.sun.prism.paint.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
@@ -27,9 +25,9 @@ public class Simon extends JFrame {
 
 
         JPanel startP = new JPanel(new BorderLayout());
-        JButton startB = new JButton("START");
-        startB.setIcon(new ImageIcon("simon_start.png"));
-        startB.setPreferredSize(new Dimension(100, 100));
+        JButton startB = new JButton();
+        startB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_start.png"));
+
 
         ActionListener actL = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -41,31 +39,39 @@ public class Simon extends JFrame {
         startP.add(startB,BorderLayout.CENTER);
 
         JPanel simonP = new JPanel(new GridLayout(2,2));
-        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
+        //Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
+        Icon[] icon1 = {new ImageIcon("src/Simon_Sagt/bilder/simon_grün.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_rot.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_gelb.png"),new ImageIcon("src/Simon_Sagt/bilder/simon_blau.png")};
         JButton[] buttons = new JButton[4];
 
         automat = new Automat(jp,buttons);
 
         for(int i = 0; i < 4; i++){
             JButton jb = buttons[i] = new JButton();
-            jb.setBackground(colors[i]);
+            jb.setIcon(icon1[i]);
             jb.setContentAreaFilled(false);
             jb.setOpaque(true);
-            jb.setPreferredSize(new Dimension(100, 100));
+            //jb.setPreferredSize(new Dimension(100, 100));
             jb.addActionListener(actL);
             simonP.add(jb);
         }
 
 
         JPanel weiterP = new JPanel(new BorderLayout());
-        JButton weiterB = new JButton("WEITER");
-
+        JButton weiterB = new JButton();
+        weiterB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_weiter.png"));
         weiterB.addActionListener(actL);
         weiterP.add(weiterB,BorderLayout.CENTER);
+
+        JPanel nextP = new JPanel(new BorderLayout());
+        JButton nextB = new JButton();
+        nextB.setIcon(new ImageIcon("src/Simon_Sagt/bilder/simon_next.png"));
+        nextB.addActionListener(actL);
+        nextP.add(nextB, BorderLayout.CENTER);
 
         jp.add(startP,"Start");
         jp.add(simonP,"Spiel");
         jp.add(weiterP,"Weiter");
+        jp.add(nextP,"Next");
 
         add(jp);
 
